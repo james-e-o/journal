@@ -16,7 +16,7 @@
   src: url("../../public/fonts/MADE_TOMMY_Regular.otf");
 }
 @font-face {
-  font-family:Voces;
+  font-family:'Voces';
   src: url("../../public/fonts/Voces-Regular.ttf");
 }
 
@@ -64,8 +64,12 @@
   --font-GeistMono: GeistMono, sans-serif;
   --font-Clash: ClashDisplay, sans-serif;
   --font-Lato: Lato, sans-serif;
+  --font-Mukta: Mukta, sans-serif;
+  --font-Acme: Acme, sans-serif;
+  --font-Voces: Voces, sans-serif;
   --font-WixMade: WixMade, sans-serif;
   --font-Cinzel: Cinzel, sans-serif;
+  --font-MontserratAl: MontserratAl, sans-serif;
 
 }
 
@@ -193,6 +197,20 @@
 }
 .no_scroll::-webkit-scrollbar{
   display: none;
+}
+
+.trade-concept {
+  background-image: url('/journalpix.jpg');
+  background-size: cover;
+  background-position: 0px  50%;
+}
+
+.accounts-img {
+  background-image: url('/chart2.png');
+  background-size: 60% 60%; 
+  background-position:  -10% -20%;
+  background-repeat: no-repeat;
+  filter: blur(5);
 }
 
 
