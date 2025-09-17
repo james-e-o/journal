@@ -1,50 +1,75 @@
 'use client'
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
-import { useState } from "react"
+import { useEffect, useState } from "react"
 import { Eye, EyeOff,LogIn,MoveLeft,MoveRight, Quote, Rocket, TriangleAlert } from "lucide-react"
+import { supabase } from "../../../../config/supabaseClient"
+import { isEmpty,isEmail,isLength,matches } from "validator"
+import { restClient } from '@polygon.io/client-js';
+
+const apiKey = process.env.NEXT_PUBLIC_POLYGONIO_API_KEY
+const rest = restClient(apiKey, 'https://api.polygon.io');
+
 
 
 
 const SignUp = () => {
   const validEmail = /^([a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})$/;
-  const [carousel,setCarousel]=useState(false)
+  const [pairData, setPairData] = useState('')
 
-    const [data, setData] = useState()
-  const [storeName, setStoreName] = useState('')
-  const [businessMail, setBusinessMail] = useState('')
-  const [userName, setUserName] = useState('')
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [passwordValidate, setPasswordValidate] = useState('')
-  const [error, setError] = useState({item:'',message:''})
+  const [error,setError] = useState(false)
+  const [errorMessage,setErrorMessage] = useState('')
+  const message = {
+    emailError:'valid email address required',
+    passwordError :'password must have at least 8 characters that includes at least number',
+    validateError :'password does not match',
+  }
+
+async function example_getForexSnapshotTicker() {
+  try {
+    const response = await rest.getForexSnapshotTicker("C:EURUSD");
+    console.log('Response:', response);
+    setPairData(response)
+  } catch (e) {
+    console.error('An error happened:', e);
+  }
+}
+
+example_getForexSnapshotTicker();
 
   function Submit(e){
     e.preventDefault()
-    if (!storeName){setError({item:'storename',message:'required'}); return}
-    else if(!businessMail||!businessMail.match(validEmail)){setError({item:'businessmail',message:'valid email address required'}); return}
-    else if(!userName){setError({item:'username',message:'required'}); return}
-    else if(!email||!email.match(validEmail)){setError({item:'email',message:'valid email address required'}); return}
-    else if(!password){setError({item:'password',message:'required'}); return}
-    else if(passwordValidate !== password){setError({item:'passwordvalidate',message:'does not match password'}); return}
+    setError(false)
+    setErrorMessage('')
 
-    console.log(businessMail,password,email)
+   
+    if(isEmpty(email) || !isEmail(email)){setError(true),setErrorMessage(message.emailError); return}
+    else if(isEmpty(password)||!isLength(password,{min:8})||!matches(password,/[0-9]/)){setError(true),setErrorMessage(message.passwordError); return}
+    else if(isEmpty(passwordValidate||!(passwordValidate==password))){setError(true),setErrorMessage(message.validateError); return} else console.log('logged')
+
+    // console.log(businessMail,password,email)
 
   }
+  useEffect(()=>{
+    console.log(email)
+  },[email])
 
   return (
   
       <div className="px-5 pb-1 w-7/12 pt-10 flex flex-col justify-start items-center flex-grow">
-        <p className=" pb-0 px-5 text-center mt-16 text-base relative font-semibold ">Get Started!</p>
+        <p className=" pb-0 px-5 text-center mt-5 text-base relative font-semibold ">Get Started!</p>
 
         <div className='rounded-md relative w-full p-1 mt-4'>
           <div className="w-full h-fit relative overflow-hidden ">
                <form method='post' >
-                    <Indiv  error ={data && data.emailError} type={'text'} name={"email"} placehold={"Email"} />
-                    <Indiv icon={true} error ={data && (data.passwordError || data.passwordError2)} type={'password'} altType={'text'} name={"password"} placehold={"Password"}/> 
-                    <Indiv icon={true} error ={data && (data.passwordError || data.passwordError2)} type={'password'} altType={'text'} name={"password"} placehold={"re-enter Password"}/> 
+                    <Indiv clearErr={()=>setError(false)} value={email} setValue={(data)=>{setEmail(data)}} error ={error && errorMessage==message.emailError && (message.emailError)} type={'text'} name={"email"} placehold={"Email"} />
+                    <Indiv clearErr={()=>setError(false)} value={password} setValue={(data)=>{setPassword(data)}} icon={true} error ={error && errorMessage==message.passwordError &&(message.passwordError)} type={'password'} altType={'text'} name={"password"} placehold={"Password"}/> 
+                    <Indiv clearErr={()=>setError(false)} value={passwordValidate} setValue={(data)=>{setPasswordValidate(data)}} icon={true} error ={error && errorMessage==message.validateError &&(message.validateError)} type={'password'} altType={'text'} name={"password"} placehold={"re-enter Password"}/> 
                         
-                    <Link href={'signin'}><Button className="text-sm mt-6 font-semibold text-zinc-950 hover:bg-yellow-500 bg-yellow-400 w-full h-10 rounded-[0.4rem]" >Sign up</Button> </Link> 
+                    <Button onClick={Submit} className="text-sm mt-6 font-semibold text-zinc-950 hover:bg-yellow-500 bg-yellow-400 w-full h-10 rounded-[0.4rem]" >Sign up</Button>
                 </form>
                 <p className="w-full pl-1 mt-2"><Link className="text-gray-500 text-[0.73rem] decoration-none" href={'signin'}>already have an account?  <span className="text-black  text-xs"> Sign in</span></Link></p>
                 <div className="items-center mx-1 mt-8 relative w-full px-2 after:absolute after:border-b after:min-w-[25%] after:right-0 after:border-gray-400 after:my-0 before:absolute before:border-b before:min-w-[25%] before:left-0 before:border-gray-400 before:my-0 flex justify-center"><span className="text-gray-800 relative -top-[2px] text-xs">or continue with</span></div>
@@ -60,15 +85,15 @@ const SignUp = () => {
   )
 }
 
-export const Indiv = ({name, value, placehold, type, error, icon, altType}) => {
+export const Indiv = ({name, value,setValue, placehold, type, error,clearErr,icon, altType}) => {
   const [inputFocus, setInputFocus] = useState(false)
   const [hide, setHide] =useState(true)
   return (
-    <div id='inputdiv' className={inputFocus?"mt-3 w-full z-0 bg-transparent py-1 px-2 h-fit border-zinc-950 relative border rounded-md ":"mt-3 w-full z-0 bg-transparent py-1 px-2 h-fit border-zinc-800 relative border rounded-md"}>
+    <div id='inputdiv' className={inputFocus?"my-7 w-full z-0 bg-transparent py-1 px-2 h-fit border-zinc-950 relative border rounded-md ":"my-7 w-full z-0 bg-transparent py-1 px-2 h-fit border-zinc-800 relative border rounded-md"}>
       <p aria-disabled className={inputFocus?"bg-amber-200 inline-block rounded ml-1 absolute text-zinc-700 text-[0.65rem] transition-all -top-2 px-1 py-0 -z-[1]":"bg-transparent inline-block rounded ml-1 absolute text-zinc-700 text-sm transition-all top-3 px-1 py-0 -z-[1]"}>{placehold}</p>
       {/* {icon && inputFocus?<div className="left-[88%] top-2 absolute inline-block z-20" onClick={()=>setHide(!hide)}>{hide?<Eye className='w-4 h-4'/>:<EyeOff className='w-4 h-4'/>}</div>:""} */}
-      <input className="border-none outline-none bg-transparent h-9 top-[0.54rem] w-full z-20 pl-1" name={name} onInput={(e)=>{e.preventDefault(),value}} onFocus={(e)=>{e.preventDefault(); setInputFocus(true)}} onBlur={(e)=>{ if (e.target.value.length===0) {setInputFocus(false); if(!hide)setHide(!hide)} else {setInputFocus(true)}}} type={!hide?altType:type}/>
-      <p className='absolute text-red-500 font-extralight italic top-8 text-[0.65rem]'>{error}</p>
+      <input value={value} className="border-none outline-none bg-transparent h-9 top-[0.54rem] w-full z-20 pl-1" name={name} onInput={(e)=>{e.preventDefault(),setValue(e.target.value),clearErr}} onFocus={(e)=>{e.preventDefault(); setInputFocus(true)}} onBlur={(e)=>{ if (e.target.value.length===0) {setInputFocus(false); if(!hide)setHide(!hide)} else {setInputFocus(true)}}} type={!hide?altType:type}/>
+      <p className='absolute text-red-500 font-extralight leading-[1] italic top-12 text-[9px]'>{error}</p>
     </div>
   )
 }
