@@ -3,7 +3,6 @@ import { Button } from "@/components/ui/button"
 import Link from "next/link"
 import { useEffect, useState } from "react"
 import { Eye, EyeOff,LogIn,MoveLeft,MoveRight, Quote, Rocket, TriangleAlert } from "lucide-react"
-import { supabase } from "../../../../config/supabaseClient"
 import { isEmpty,isEmail,isLength,matches } from "validator"
 
 
