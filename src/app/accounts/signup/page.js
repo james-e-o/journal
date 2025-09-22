@@ -5,10 +5,6 @@ import { useEffect, useState } from "react"
 import { Eye, EyeOff,LogIn,MoveLeft,MoveRight, Quote, Rocket, TriangleAlert } from "lucide-react"
 import { supabase } from "../../../../config/supabaseClient"
 import { isEmpty,isEmail,isLength,matches } from "validator"
-import { restClient } from '@polygon.io/client-js';
-
-const apiKey = process.env.NEXT_PUBLIC_POLYGONIO_API_KEY
-const rest = restClient(apiKey, 'https://api.polygon.io');
 
 
 
