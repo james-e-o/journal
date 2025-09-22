@@ -14,8 +14,6 @@ const rest = restClient(apiKey, 'https://api.polygon.io');
 
 
 const SignUp = () => {
-  const validEmail = /^([a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,})$/;
-  const [pairData, setPairData] = useState('')
 
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
@@ -28,17 +26,7 @@ const SignUp = () => {
     validateError :'password does not match',
   }
 
-async function example_getForexSnapshotTicker() {
-  try {
-    const response = await rest.getForexSnapshotTicker("C:EURUSD");
-    console.log('Response:', response);
-    setPairData(response)
-  } catch (e) {
-    console.error('An error happened:', e);
-  }
-}
 
-example_getForexSnapshotTicker();
 
   function Submit(e){
     e.preventDefault()
@@ -69,10 +57,10 @@ example_getForexSnapshotTicker();
                     <Indiv clearErr={()=>setError(false)} value={password} setValue={(data)=>{setPassword(data)}} icon={true} error ={error && errorMessage==message.passwordError &&(message.passwordError)} type={'password'} altType={'text'} name={"password"} placehold={"Password"}/> 
                     <Indiv clearErr={()=>setError(false)} value={passwordValidate} setValue={(data)=>{setPasswordValidate(data)}} icon={true} error ={error && errorMessage==message.validateError &&(message.validateError)} type={'password'} altType={'text'} name={"password"} placehold={"re-enter Password"}/> 
                         
-                    <Button onClick={Submit} className="text-sm mt-6 font-semibold text-zinc-950 hover:bg-yellow-500 bg-yellow-400 w-full h-10 rounded-[0.4rem]" >Sign up</Button>
+                    <Button onClick={Submit} className="text-sm mt-4 font-semibold text-zinc-950 hover:bg-yellow-500 bg-yellow-400 w-full h-10 rounded-[0.4rem]" >Sign up</Button>
                 </form>
-                <p className="w-full pl-1 mt-2"><Link className="text-gray-500 text-[0.73rem] decoration-none" href={'signin'}>already have an account?  <span className="text-black  text-xs"> Sign in</span></Link></p>
-                <div className="items-center mx-1 mt-8 relative w-full px-2 after:absolute after:border-b after:min-w-[25%] after:right-0 after:border-gray-400 after:my-0 before:absolute before:border-b before:min-w-[25%] before:left-0 before:border-gray-400 before:my-0 flex justify-center"><span className="text-gray-800 relative -top-[2px] text-xs">or continue with</span></div>
+                <p className="w-full pl-1 mt-1"><Link className="text-gray-500 text-[0.73rem] decoration-none" href={'signin'}>already have an account?  <span className="text-black  text-xs"> Sign in</span></Link></p>
+                <div className="items-center mx-1 mt-6 relative w-full px-2 after:absolute after:border-b after:min-w-[20%] after:right-0 after:border-gray-400 after:my-0 before:absolute before:border-b before:min-w-[20%] before:left-0 before:border-gray-400 before:my-0 flex justify-center"><span className="text-gray-800 relative -top-[2px] text-xs">or continue with</span></div>
                 <div className="flex justify-center mt-2 gap-3 items-center">
                     <Button className="text-sm mt-4 font-medium w-fit cursor-pointer text-gray-500 border-gray-400 rounded-[0.3rem]" variant='outline' >{google}</Button> 
                     <Button className="text-sm mt-4 font-medium w-fit cursor-pointer text-gray-500 border-gray-400 rounded-[0.3rem]" variant='outline' >{x}</Button> 

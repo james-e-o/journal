@@ -8,6 +8,8 @@ import { defaultClassNames } from "@/components/ui/calendar"
 import { Calendar, CalendarDayButton } from "@/components/ui/calendar"
 
 export function Calendar04() {
+
+   const [mode, setMode] = useState('single')
   const [range, setRange] = useState({
     from: new Date(2025, 5, 12),
     to: new Date(2025, 5, 17),
@@ -15,13 +17,13 @@ export function Calendar04() {
 
   return (
     <Calendar
-      mode="range"
+      mode={mode}
       defaultMonth={range?.from}
       selected={range}
       onSelect={setRange}
       numberOfMonths={1}
       captionLayout="dropdown"
-      className="rounded-lg border shadow-sm [--cell-size:--spacing(11)] md:[--cell-size:--spacing(13)]"
+      className="rounded-lg border w-full shadow-sm [--cell-size:--spacing(9)] md:[--cell-size:--spacing(10)]"
       formatters={{
         formatMonthDropdown: (date) => {
           return date.toLocaleString("default", { month: "long" })

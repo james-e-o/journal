@@ -4,7 +4,7 @@ export default function AccountsLayout({ children }) {
        <div className='overflow-hidden h-full '>
             <div className='h-svh flex font-Inter border-b backdrop-blur-md flex-col'>
                 <div className="flex w-full flex-grow"> 
-                     <div className="px-5 pb-1 overflow-clip md:w-5/12 pt-10 flex bg-white md:shadow-xs shadow-gray-200 flex-col relative justify-start  items-center flex-grow">
+                     <div className="px-5 pb-1 overflow-clip md:w-5/12 pt-4 flex bg-white md:shadow-xs shadow-gray-200 flex-col relative justify-start  items-center flex-grow">
                         <div className="absolute size-40 -top-20 -left-14 rounded-full border-[20px] bg-transparent border-yellow-400"></div>
                         <div className="absolute size-40 -bottom-14 -right-11 rounded-full border-[20px] bg-transparent border-yellow-400"></div>
                         {children}  
