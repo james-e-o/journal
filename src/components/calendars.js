@@ -17,6 +17,7 @@ export function Calendar04() {
   const [date, setDate] = useState(new Date(2025, 5, 12))
 
   return (
+    <div>
     <div className={'pt-0 pb-5 bg-card mt-1 text-card-foreground border rounded-lg h-fit '}>
       <CardContent className="p-0 ">
         <Calendar
@@ -50,13 +51,14 @@ export function Calendar04() {
           }}
           />
       </CardContent>
+    </div>
       <div  className="flex px-6 bg-red-500 items-center justify-between pt-0">
         <div className="flex gap-2">
           <button onClick={() => setMode('single')} className={cn("px-7 py-1.5 rounded-md text-sm border-[3px] border-zinc-300 font-medium",mode==='single'?"bg-amber-400 text-black":"bg-gray-200 text-gray-700 hover:bg-gray-300")}>Single</button>
           <button onClick={() => setMode('range')} className={cn("px-7 py-1.5 rounded-md text-sm border-[3px] border-zinc-300 font-medium",mode==='range'?"bg-amber-400 text-black":"bg-gray-200 text-gray-700 hover:bg-gray-300")}>Range</button>
         </div>
       </div >
-    </div>
+      </div >
   )
 }
 

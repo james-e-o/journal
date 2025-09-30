@@ -117,11 +117,11 @@ export default TradeAccount
                 </div>
                 
                 <nav className='justify-end gap-3 flex'>
-                  <Link href='/user/trade-account'><Button variant={'ghost'} className={'h-8 cursor-pointer'}><Calendar className='size-6 '/></Button></Link>
-                  <Link href='/user/trade-account/info'><Button variant={'ghost'} className={'h-8 cursor-pointer'}><Info className='size-6 '/></Button></Link>
-                  <Link href='/user/trade-account/journals'><Button variant={'ghost'} className={'h-8 cursor-pointer'}><NotepadText className='size-6 '/></Button></Link>
+                  <Link onClick={()=>{setExtension(false)}} href='/user/trade-account'><Button variant={'ghost'} className={'h-8 cursor-pointer'}><Calendar className='size-6 '/></Button></Link>
+                  <Link onClick={()=>{setExtension(false)}} href='/user/trade-account/info'><Button variant={'ghost'} className={'h-8 cursor-pointer'}><Info className='size-6 '/></Button></Link>
+                  <Link onClick={()=>{setExtension(false)}} href='/user/trade-account/journals'><Button variant={'ghost'} className={'h-8 cursor-pointer'}><NotepadText className='size-6 '/></Button></Link>
                   <Button variant={'ghost'} onClick={()=>{setExtension(true)}} className={'h-8 cursor-pointer'}><ChartCandlestick className='size-6 '/></Button>
-                  <Link href='/user/trade-account/risk-calculator'><Button variant={'ghost'} className={'h-8 cursor-pointer'}><Calculator className='size-6 '/></Button></Link>
+                  <Link onClick={()=>{setExtension(false)}} href='/user/trade-account/risk-calculator'><Button variant={'ghost'} className={'h-8 cursor-pointer'}><Calculator className='size-6 '/></Button></Link>
                 </nav>
               </div>
               <div className='flex flex-col mt-2 rounded-md overflow-hidden bg-white flex-grow'>
