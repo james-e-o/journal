@@ -25,7 +25,7 @@ export default TradeAccount
 
 export const ResponsiveDataSection = () => {
       return (
-        <div className=' flex gap-1.5 flex-col h-full'>
+        <div className=''>
               <div className=' shadow-sm px-4  pt-3 pb-5 bg-white rounded-md'>
                 <div className=''>
                     <div className="flex items-center gap-3 mt-0">
