@@ -1,0 +1,77 @@
+"use client";
+import { useState, useEffect } from "react";
+import { Button } from "@/components/ui/button";
+
+const features = [
+  {
+    title: "Track sales in real time.",
+    desc: "Monitor every transaction instantly from anywhere."
+  },
+  {
+    title: "Manage staff on-site.",
+    desc: "Assign roles, monitor activity, and keep everything in sync."
+  },
+  {
+    title: "Manage stock in store.",
+    desc: "Stay updated with inventory levels and avoid stockouts."
+  },
+  {
+    title: "Control purchases with ease.",
+    desc: "Simplify ordering and procurement with streamlined tools."
+  },
+  {
+    title: "All-in-one dashboard.",
+    desc: "Everything you need in one simple interface."
+  }
+];
+
+export default function FeatureScroller() {
+  const [activeIndex, setActiveIndex] = useState(0);
+
+  // Auto-scroll every 3 seconds
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setActiveIndex((prev) => (prev + 1) % features.length);
+    }, 3000);
+    return () => clearInterval(interval);
+  }, []);
+
+  return (
+    <div className="bg-gradient-to-r from-zinc-900 to-zinc-700 text-white flex flex-col space-y-8 rounded-lg px-6 pt-6 pb-8   ">
+        
+    <div className="flex flex-col md:flex-row items-center md:h-[45vh] gap-5 justify-center px-2  md:px-10">
+      {/* Left Text Section */}
+      <div className="w-1/2 space-y-3">
+        <h1 className="text-4xl capitalize font-bold">
+          Improve your trading with the best Resources, and more...
+        </h1>
+        <div className="mt-6">
+          <h2 className="text-2xl font-semibold transition-opacity duration-500">
+            {features[activeIndex].title}
+          </h2>
+          <p className="text-lg opacity-80">{features[activeIndex].desc}</p>
+        </div>
+      </div>
+
+      {/* Right Scrolling Section */}
+      <div className="w-1/2 h-80 overflow-hidden relative top-[10%] rounded-lg border border-gray-200">
+        <div
+          className="absolute flex h-80 top-0 left-0 w-full transition-transform duration-700"
+        //   style={{ transform: `translateY(-${activeIndex * 100}%)` }}
+          style={{ transform: `translateX(-${activeIndex * 100}%)` }}
+        >
+          {features.map((item, index) => (
+              <div
+              key={index}
+              className=" h-full flex scroll_item items-center justify-center bg-green-500 text-white text-2xl font-bold"
+            >
+              {item.title}
+            </div>
+          ))}
+        </div>
+      </div>
+    </div>
+      <Button className='rounded-full text-zinc-950 ml-9 w-fit h-12 px-7 py-2 bg-amber-400 border-[3px] border-zinc-500'>Get Resources</Button>
+    </div>
+  );
+}
