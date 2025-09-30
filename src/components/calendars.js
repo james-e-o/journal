@@ -50,12 +50,12 @@ export function Calendar04() {
           }}
           />
       </CardContent>
-      <CardFooter className="flex items-center justify-between pt-0">
+      <div  className="flex px-6 items-center justify-between pt-0">
         <div className="flex gap-2">
           <button onClick={() => setMode('single')} className={cn("px-7 py-1.5 rounded-md text-sm border-[3px] border-zinc-300 font-medium",mode==='single'?"bg-amber-400 text-black":"bg-gray-200 text-gray-700 hover:bg-gray-300")}>Single</button>
           <button onClick={() => setMode('range')} className={cn("px-7 py-1.5 rounded-md text-sm border-[3px] border-zinc-300 font-medium",mode==='range'?"bg-amber-400 text-black":"bg-gray-200 text-gray-700 hover:bg-gray-300")}>Range</button>
         </div>
-      </CardFooter>
+      </div >
     </Card>
   )
 }
