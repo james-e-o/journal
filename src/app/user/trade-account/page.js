@@ -43,7 +43,7 @@ export const ResponsiveDataSection = () => {
                 </div>
               </div>
               <Calendar04 />
-                {/* <div className=' shadow-sm px-4 py-2 flex-grow bg-white rounded-md'>
+                <div className=' shadow-sm px-4 py-2 flex-grow bg-white rounded-md'>
                   <div className="h-full flex flex-col">
                     <p className='text-xs text-zinc-700 relative border-b -top-0.5 font-WixMade tracking-tighter p-1 font-medium'>3rd June</p>
                     <div className=' flex-grow flex flex-col gap-0.5 justify-center'>
@@ -52,7 +52,7 @@ export const ResponsiveDataSection = () => {
                         <p className='text-sm text-zinc-800 justify-between px-1 flex items-center gap-3 font-WixMade tracking-tight font-medium'><span className='text-zinc-500'>Average Holding Time:</span><span className='font-semibold'>{'1hr 20mins'}</span></p>
                     </div>
                   </div>
-                </div> */}
+                </div>
         </div>
       )
     }

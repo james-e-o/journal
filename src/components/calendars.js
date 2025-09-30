@@ -17,7 +17,11 @@ export function Calendar04() {
   const [date, setDate] = useState(new Date(2025, 5, 12))
 
   return (
-    <Card className={'pt-0 rounded-lg grid overflow-clip'}>
+    <Card className={'pt-4 my-1 rounded-lg overflow-clip'}>
+       <div className="flex ml-5 mb-1 gap-2">
+          <button onClick={() => setMode('single')} className={cn("px-7 py-1.5 rounded-md text-sm border-[3px] border-zinc-300 font-medium",mode==='single'?"bg-amber-400 text-black":"bg-gray-200 text-gray-700 hover:bg-gray-300")}>Single</button>
+          <button onClick={() => setMode('range')} className={cn("px-7 py-1.5 rounded-md text-sm border-[3px] border-zinc-300 font-medium",mode==='range'?"bg-amber-400 text-black":"bg-gray-200 text-gray-700 hover:bg-gray-300")}>Range</button>
+        </div>
       <CardContent className="p-0 ">
         <Calendar
           mode={mode}
@@ -50,12 +54,12 @@ export function Calendar04() {
           }}
           />
       </CardContent>
-      <div  className="flex px-6 items-center justify-between pt-0">
+      {/* <CardFooter className="flex items-center justify-between pt-0">
         <div className="flex gap-2">
           <button onClick={() => setMode('single')} className={cn("px-7 py-1.5 rounded-md text-sm border-[3px] border-zinc-300 font-medium",mode==='single'?"bg-amber-400 text-black":"bg-gray-200 text-gray-700 hover:bg-gray-300")}>Single</button>
           <button onClick={() => setMode('range')} className={cn("px-7 py-1.5 rounded-md text-sm border-[3px] border-zinc-300 font-medium",mode==='range'?"bg-amber-400 text-black":"bg-gray-200 text-gray-700 hover:bg-gray-300")}>Range</button>
         </div>
-      </div >
+      </CardFooter> */}
     </Card>
   )
 }
