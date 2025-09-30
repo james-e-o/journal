@@ -68,11 +68,11 @@ export default function Home() {
     <div id="landing-wrap" onScroll={(e)=>{dropState?setDropState(false):''}} className="font-sans w-full relative z-0 overflow-x-hidden no_scroll h-svh overflow-y-scroll ">
       <div className="min-h-svh relative flex z-0 flex-col justify-start bg-black">
         {/* <div className="absolute bg-white size-80"></div> */}
-        <header id="landing-header" className={`flex md:mt-7 font-serif  justify-between md:border transition-all top-0 duration-200  border-zinc-700 w-full mx-auto md:w-[65%] py-2.5 px-4 md:px-[1.8rem] md:py-1.5 z-[1000] md:rounded-[48px] md:bg-white/5 items-center `}>
+        <header id="landing-header" className={`flex md:mt-7 font-serif  justify-between md:border transition-all top-0 duration-200  border-zinc-700 w-full mx-auto md:w-[65%] py-2 px-4 md:px-[1.8rem] md:py-1.5 z-[1000] md:rounded-[48px] md:bg-white/5 items-center `}>
         {/* <header className="flex  mb-7 justify-between py-2 md:py-4 md:px-7 items-center "> */}
           <div>
             <Image
-              className="dark:invert scale-90  md:scale-x-[112%]"
+              className="dark:invert scale-90 relative top-1.5  md:scale-x-[112%]"
               src="/rayani3.png"
               alt="Next.js logo"
               width={50}
@@ -80,16 +80,16 @@ export default function Home() {
               priority
             />
           </div>
-          <p className="flex font-Cinzel gap-1 md:gap-2.5">
-            <Button variant={'ghost'} className={`obstinate text-white cursor-pointer text-base hover:bg-transparent hover:-translate-y-0.5  hover:text-amber-200 font-semibold`}>About</Button>
+          <p className="flex font-Cinzel relative top-1 gap-1 md:gap-2.5">
+            <Button variant={'ghost'} className={`obstinate text-white cursor-pointer text-sm hover:bg-transparent hover:-translate-y-0.5  hover:text-amber-200 font-bold`}>About</Button>
             {/* <Button variant={'ghost'} className={'text-white cursor-pointer text-base hover:bg-transparent hover:-translate-y-0.5 hover:text-amber-200 font-semibold'}>Blogs</Button> */}
-            <Button variant={`ghost`} className={`obstinate text-white cursor-pointer text-base hover:bg-transparent hover:-translate-y-0.5  hover:text-amber-200 font-semibold`}>Plans</Button>
+            <Button variant={`ghost`} className={`obstinate text-white cursor-pointer text-sm hover:bg-transparent hover:-translate-y-0.5  hover:text-amber-200 font-bold`}>Plans</Button>
           </p>
-          <nav className=" gap-10">
-            <Button variant={'destructive'} className={'bg-white text-black  rounded-3xl md:h-9 font-bold font-Cinzel tracking-tighter border-2 border-zinc-400'}>Sign in</Button>
+          <nav className=" relative top-1 gap-10">
+            <Button variant={'destructive'} className={'bg-white text-black  rounded-3xl h-8 md:h-9 font-bold font-Cinzel tracking-tighter border-2 border-zinc-400'}>Sign in</Button>
           </nav>
         </header>
-        <div className="flex p-5 items-center relative flex-col h-[82svh] gap-0 justify-center">
+        <div className="flex p-5 items-center relative flex-col h-[92svh] gap-0 justify-center">
           <div className="bg-yellow-500 blur-[100px] scale-125 before:w-full before:h-full before:bg-transparent before:absolute before:blur-3xl top-2/5 right-2/12 w-52 h-44 absolute"></div>
           <p className="text-[#f1f1f1] font-sans font-bold text-start sm:text-center tracking-tighter   text-5xl md:text-5xl lg:text-7xl">Journal your Trades</p>
           <p className="text-[#a9a9a9] font-sans font-bold text-start sm:text-center tracking-tighter   mt-3 text-5xl md:text-5xl lg:text-7xl">Track Your Growth Journey</p>
