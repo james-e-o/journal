@@ -8,87 +8,17 @@ import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious
 import Link from "next/link";
 import { X,XIcon } from "lucide-react";
 import FeatureScroller from "@/components/scroller";
+import { Avatar } from "@/components/ui/avatar";
 import {  Accordion,  AccordionContent,  AccordionItem,  AccordionTrigger,} from "@/components/ui/accordion"
 import LandingHeader from "@/components/hero-header";
 
 export default function Home() {
-  const [dropState, setDropState] = useState(false)
-  const [stickyHead, setStickyHead] = useState(false)
-  useEffect(()=>{
-    document.onpointerdown = ({target}) => {
-      if(dropState&&target.closest('div#drop-box'))return
-      else if(dropState) {
-        setDropState(!dropState)
-      }
-    }
-    const wrap = document.getElementById("landing-wrap");
-    const header = document.getElementById("landing-header");
-    const trigger = document.getElementById("landing-main");
-    const obstinateButtons = document.querySelectorAll('.obstinate');
-
-    console.log(header,trigger)
-
-    wrap.addEventListener("scroll", (e) => {
-      const rect = trigger.getBoundingClientRect();
-      // console.log(' scrolling',rect.top)
-
-      if (rect.top <= 0) {
-        header.classList.add("activeItem");
-        obstinateButtons.forEach(btn=>{
-          btn.classList.add('textblack')      
-          btn.classList.remove('textwhite')
-        })
-      } else {
-        header.classList.remove("activeItem");
-         obstinateButtons.forEach(btn=>{
-          btn.classList.remove('textblack')      
-          btn.classList.add('textwhite')
-        })
-      }
-    });
-  
-    // const observer = new IntersectionObserver(
-    //   (entries) => {
-    //     entries.forEach((entry) => {
-    //       // If the trigger is *not* intersecting (scrolled past top)
-    //       if (!entry.isIntersecting) {
-    //         header.classList.add("activeItem");
-    //       } else {
-    //         header.classList.remove("activeItem");
-    //       }
-    //       console.log('intersect')
-    //     });
-    //   },
-    //   { threshold: 0, rootMargin: "-1px 0px 0px 0px" }
-    // );
-  
-    // observer.observe(trigger);
-  })
+ 
   return (
     <div id="landing-wrap" onScroll={(e)=>{dropState?setDropState(false):''}} className="font-sans w-full relative z-0 overflow-x-hidden no_scroll h-svh overflow-y-scroll ">
       <div className="min-h-svh relative flex z-0 flex-col justify-start bg-black">
-        {/* <div className="absolute bg-white size-80"></div> */}
-        <header id="landing-header" className={`flex md:mt-7 font-serif  justify-between md:border transition-all top-0 duration-200  border-zinc-700 w-full mx-auto md:w-[65%] py-2 px-4 md:px-[1.8rem] md:py-1.5 z-[1000] md:rounded-[48px] md:bg-white/5 items-center `}>
-        {/* <header className="flex  mb-7 justify-between py-2 md:py-4 md:px-7 items-center "> */}
-          <div>
-            <Image
-              className="dark:invert scale-90 relative top-1.5  md:scale-x-[112%]"
-              src="/rayani3.png"
-              alt="Next.js logo"
-              width={50}
-              height={50}
-              priority
-            />
-          </div>
-          <p className="flex font-Cinzel relative top-1 gap-1 md:gap-2.5">
-            <Button variant={'ghost'} className={`obstinate text-white cursor-pointer text-sm hover:bg-transparent hover:-translate-y-0.5  hover:text-amber-200 font-bold`}>About</Button>
-            {/* <Button variant={'ghost'} className={'text-white cursor-pointer text-base hover:bg-transparent hover:-translate-y-0.5 hover:text-amber-200 font-semibold'}>Blogs</Button> */}
-            <Button variant={`ghost`} className={`obstinate text-white cursor-pointer text-sm hover:bg-transparent hover:-translate-y-0.5  hover:text-amber-200 font-bold`}>Plans</Button>
-          </p>
-          <nav className=" relative top-1 gap-10">
-            <Button variant={'destructive'} className={'bg-white text-black  rounded-3xl h-8 md:h-9 font-bold font-Cinzel tracking-tighter border-2 border-zinc-400'}>Sign in</Button>
-          </nav>
-        </header>
+        <LandingHeader />
+       
         <div className="flex p-5 items-center relative flex-col h-[92svh] gap-0 justify-center">
           <div className="bg-yellow-500 blur-[100px] scale-125 before:w-full before:h-full before:bg-transparent before:absolute before:blur-3xl top-2/5 right-2/12 w-52 h-44 absolute"></div>
           <p className="text-[#f1f1f1] font-sans font-bold text-start sm:text-center tracking-tighter   text-5xl md:text-5xl lg:text-7xl">Journal your Trades</p>
@@ -119,7 +49,7 @@ export default function Home() {
                 defaultValue="item-1"
               >
                 <AccordionItem value="item-1" className=" flex flex-col items-center">
-                  <AccordionTrigger className={'flex font-semibold text-yellow-500 text-xl items-center justify-center md:text-3xl'}>Smart Trade Logging</AccordionTrigger>
+                  <AccordionTrigger className={'flex font-semibold text-core text-xl items-center justify-center md:text-3xl'}>Smart Trade Logging</AccordionTrigger>
                   <AccordionContent className="flex flex-col items-center gap-4 text-balance">
                     <p className="text-lg md:text-2xl text-center leading-[1.5] md:leading-[2] md:w-4/5 w-full flex-col items-center flex">
                       Our flagship product combines cutting-edge technology with sleek
@@ -129,7 +59,7 @@ export default function Home() {
                   </AccordionContent>
                 </AccordionItem>
                 <AccordionItem value="item-2">
-                  <AccordionTrigger className={'flex font-semibold justify-center md:text-3xl text-yellow-500 text-xl items-center'}>Shipping Details</AccordionTrigger>
+                  <AccordionTrigger className={'flex font-semibold justify-center md:text-3xl text-core text-xl items-center'}>Shipping Details</AccordionTrigger>
                   <AccordionContent className="flex flex-col items-center gap-4 text-balance">
                     <p className="text-lg md:text-2xl text-center leading-[1.5] md:leading-[2] md:w-4/5 w-full flex-col items-center flex">
                       We offer worldwide shipping through trusted courier partners.
@@ -139,7 +69,7 @@ export default function Home() {
                   </AccordionContent>
                 </AccordionItem>
                 <AccordionItem value="item-3 flex flex-col items-center">
-                  <AccordionTrigger className={'flex font-semibold md:text-3xl text-yellow-500 text-xl items-center justify-center'}>Smart Trade Logging</AccordionTrigger>
+                  <AccordionTrigger className={'flex font-semibold md:text-3xl text-core text-xl items-center justify-center'}>Smart Trade Logging</AccordionTrigger>
                   <AccordionContent className="flex flex-col items-center gap-4 text-balance">
                     <p className="text-lg md:text-2xl text-center leading-[1.5] md:leading-[2] md:w-4/5 w-full flex-col items-center flex">
                       Our flagship product combines cutting-edge technology with sleek
@@ -149,7 +79,7 @@ export default function Home() {
                   </AccordionContent>
                 </AccordionItem>
                 <AccordionItem value="item-4">
-                  <AccordionTrigger className={'flex font-semibold justify-center md:text-3xl text-yellow-500 text-xl items-center'}>Shipping Details</AccordionTrigger>
+                  <AccordionTrigger className={'flex font-semibold justify-center md:text-3xl text-core text-xl items-center'}>Shipping Details</AccordionTrigger>
                   <AccordionContent className="flex flex-col items-center gap-4 text-balance">
                     <p className="text-lg md:text-2xl text-center leading-[1.5] md:leading-[2] md:w-4/5 w-full flex-col items-center flex">
                       We offer worldwide shipping through trusted courier partners.
@@ -165,27 +95,27 @@ export default function Home() {
 
           <div className="flex flex-col mt-8 md:mt-16 items-center justify-start">
             <p className="font bold tracking-tighter font-bold text-center text-3xl md:text-5xl text-zinc-800 font-sans py-3">Your trusted trading journal.</p>
-            <div className="w-4/5 p-12 flex flex-col mt-6 md:mt-10 items-center gap-3 rounded-3xl bg-gradient-to-b from-amber-300 to-yellow-600">
+            <div className="w-4/5 p-12 flex flex-col mt-6 md:mt-10 items-center gap-3 rounded-3xl bg-gradient-to-b from-core to-yellow-600">
                 <p className="text-6xl font-bold font-sans tracking-tighter">60,000+</p>
                 <span className="text-white relative top-3 font-semibold">Registered users</span>
             </div>
           </div>
-          <div className="mt-20">
+          <div className="mt-5 md:mt-20">
             <div className=" w-[95%] mx-auto  py-12 px-4 md:px-9">
-              <p className=" text-zinc-800 font-WixMade text-start text-3xl my-6 font-semibold">Trading Resources</p>
+              <p className=" text-zinc-800 font-WixMade text-xl text-center md:text-start  md:text-3xl my-6 font-semibold">Trading Resources</p>
               <FeatureScroller />
             </div>
           </div>
-          <div className="bg-zinc-50  mt-20 py-12 px-9">
-            <p className="text-center text-zinc-800 font-WixMade text-3xl my-6 font-semibold">Reviews from Our Users</p>
-              <Carousel className="w-[95%] mx-auto">
-                <CarouselContent className="-ml-1 grid grid-cols-3">
-                  {Array.from({ length: 5 }).map((_, index) => (
+          <div className="bg-zinc-50 mt-8 md:mt-20 py-12 px-4 md:px-9">
+            <p className="text-center text-zinc-800 font-WixMade text-2xl md:text-3xl my-3 md:my-6 font-semibold">Reviews from Our Users</p>
+              <Carousel className="w-[80%] mx-auto">
+                <CarouselContent className="">
+                  {Array.from({ length: 16 }).map((_, index) => (
                     <CarouselItem key={index} className="pl-1  md:basis-1/2 lg:basis-1/3">
-                      <div className="p-1 flex-col flex gap-3">
+                      <div className="p-5 flex-col flex gap-3">
                         <Card>
                           <CardContent className="flex min-h-44 items-center justify-center p-6">
-                            <span className="text-2xl font-semibold">{index + 1}</span>
+                            <CommentCard />                           
                           </CardContent>
                         </Card>
                       </div>
@@ -198,7 +128,7 @@ export default function Home() {
                   </div>
         
         </main>
-        <footer className="py-0 md:px-16 ">
+        <footer className="p-8 border-t text-white border-border text-sm">
           <p className="px-5"><Image
                   className="dark:invert"
                   src="/rayani.jpg"
@@ -207,10 +137,10 @@ export default function Home() {
                   height={80}
                   priority
                 /></p>
-          <div className="flex md:grid mt-8 text-xs text-zinc-800 gap-10 grid-cols-4">
+          <div className="grid grid-cols-2 md:grid-cols-3 mt-8 text-xs text-zinc-300 gap-10 lg:grid-cols-4">
             <div className=" px-5">
               <p className="font-MontserratAl relative md:-top-1 font-medium">Helping you master the art of trade discipline</p>
-              <div className="flex mt-2 fill-amber-400 gap-5">
+              <div className="flex mt-2 fill-core gap-5">
                   {instagram}
                   {youtube}
                   {linkedin}
@@ -218,23 +148,23 @@ export default function Home() {
               </div>
             </div>
             <div className="font-MontserratAl px-5">
-              <p className="font-bold tracking-tight text-xs text-black">Coporate</p>
+              <p className="font-bold tracking-tight text-xs text-white">Coporate</p>
               <div className="flex mt-6 flex-col gap-4">
-                <p className="">About us</p>
+                <Link href={'/about'}><p className="">About us</p></Link>
                 <p className="">Terms and Conditions</p>
                 <p className="">Privacy policy</p>
                 <p className="">Refunds and Cancellation</p>
               </div>
             </div>
-            <div className="font-MontserratAl">
-              <p className="font-bold tracking-tight text-xs text-black">Resources</p>
+            <div className="font-MontserratAl px-5">
+              <p className="font-bold tracking-tight text-xs text-white">Resources</p>
               <div className="flex mt-6 flex-col gap-4">
                 <p className="">Blog</p>
               
               </div>
             </div>
-            <div className="font-MontserratAl">
-              <p className="font-bold tracking-tight text-xs text-black">Support</p>
+            <div className="font-MontserratAl px-5">
+              <p className="font-bold tracking-tight text-xs text-white">Support</p>
               <div className="flex mt-6 flex-col gap-4">
                 <p className="">Contact</p>
                 <p className="">Live chat</p>
@@ -243,7 +173,7 @@ export default function Home() {
             </div>
           </div>
           <div className="pb-14 pt-10 px-5 font-semibold">
-            <p className="text-xs font-MontserratAl"> © Rayani - {new Date().getFullYear()}</p>
+            <p className="text-xs font-MontserratAl">Copyright © Rayani - {new Date().getFullYear()}</p>
           </div>
         </footer>
       </div>
@@ -251,16 +181,24 @@ export default function Home() {
   );
 }
 
-{/* <Image
-  className="dark:invert"
-  src="/next.svg"
-  alt="Next.js logo"
-  width={180}
-  height={38}
-  priority
-/> */}
 
-
+const CommentCard = () => {
+  return (
+    <div className="flex-col w-full justify-start flex p-2 ">
+      <p></p>
+      <div className="md:flex font-WixMade tracking-tighter scale-90 flex gap-2 items-center">
+          <Avatar className='items-center inline-flex rounded-full w-7 h-7 justify-center'>
+              <Image src='/dummy.jpg' width={50} height={50} className=" w-full " alt="@storeprobuilder"/>
+              {/* <AvatarFallback>JO</AvatarFallback> */}
+          </Avatar>
+          <div className="flex-col justify-center leading-tight flex">
+              <p className="text-[10px] font-bold">Staff007</p>
+              <p className="text-[10px] font-semibold text-core_contrast/70">staffmail@xyz.store</p>
+          </div>
+        </div>
+    </div>
+  )
+}
 
 
 
