@@ -9,12 +9,7 @@ const LandingHeader = () => {
      
   
   useEffect(()=>{
-          document.onpointerdown = ({target}) => {
-               if(dropState&&target.closest('div#drop-box'))return
-               else if(dropState) {
-               setDropState(!dropState)
-               }
-          }
+          
           const wrap = document.getElementById("landing-wrap");
           const header = document.getElementById("landing-header");
           const trigger = document.getElementById("landing-main");
@@ -62,7 +57,7 @@ const LandingHeader = () => {
                <Link href={'/plans'}><Button variant={`ghost`} className={`obstinate text-white cursor-pointer text-sm hover:bg-transparent hover:-translate-y-0.5  hover:text-amber-200 font-bold`}>Plans</Button></Link>
           </p>
           <nav className=" relative top-1 md:top-0 gap-10">
-               <Button variant={'destructive'} className={'bg-white text-black  rounded-3xl h-8 md:h-9 font-bold font-Cinzel tracking-tighter border-2 border-zinc-400'}>Sign in</Button>
+              <Link className='cursor-pointer' href={'/accounts/signin'}><Button variant={'destructive'} className={'bg-white text-black  rounded-3xl h-8 md:h-9 font-bold font-Cinzel tracking-tighter border-2 border-zinc-400'}>Sign in</Button></Link> 
           </nav>
      </header>
      )

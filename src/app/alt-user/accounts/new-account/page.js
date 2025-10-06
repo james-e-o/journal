@@ -37,7 +37,7 @@ const NewAccount = () => {
   return (
     <Tabs className=' flex inset-0  bg-black/10 shadow-md shadow- absolute z-40 '>
         <div className='bg-white flex flex-col p-2 md:p-4 md:grid grid-cols-4 gap-2 border-zinc-400 border absolute inset-x-1.5 shadow-0 inset-y-1  overflow-clip rounded-md'>
-            <div className="text-start md:flex-col justify-between w-full flex p-4 md:p-6 col-span-1 font-WixMade  rounded-xl bg-zinc-900 tracking-tight text-xl font-semibold">
+            <div className="text-start md:flex-col justify-between w-full flex p-4 md:p-6 col-span-1 font-WixMade  rounded-lg bg-zinc-900 tracking-tight text-xl font-semibold">
                 <div className="scale-95 sm:scale-100 w-full">
                     <p className="font-semibold w-full md:w-4/5 text-start flex justify-between items-center md:mx-auto md:mt-4 p-1 text-sm text-white">
                         <span>New Journal Account</span> 

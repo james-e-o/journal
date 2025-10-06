@@ -42,7 +42,7 @@ const SignUp = () => {
 
   return (
   
-      <div className="px-5 pb-1 w-7/12 pt-10 flex flex-col justify-start items-center flex-grow">
+      <div className="px-5 pb-1 w-10/12 md:w-7/12 pt-10 flex flex-col justify-start items-center flex-grow">
         <p className=" pb-0 px-5 text-center mt-5 text-base relative font-semibold ">Get Started!</p>
 
         <div className='rounded-md relative w-full p-1 mt-4'>

@@ -115,7 +115,7 @@
 }
 
 :root {
-  --core:oklch(84.901% 0.16371 84.383 / 0.919);
+  --core:oklch(82.901% 0.17115 81.038);
   --radius: 0.625rem;
   --background: oklch(1 0 0);
   --foreground: oklch(0.141 0.005 285.823);
@@ -195,7 +195,6 @@
   }
 }
 
-
 .no_scroll{
   scrollbar-width: none; 
 }
@@ -253,7 +252,6 @@
   background-position: 0px  50%;
 }
 
-
 .accounts-img {
   background-image: url('/chart2.png');
   background-size: 60% 60%; 
@@ -300,9 +298,9 @@ input[type=number] {
   97% { transform: translateY(100%); }
   to { transform: translateY(100%); }
 } */
- 
+
 .test {
-  color: oklch(83.264% 0.17012 90.649);
+  color:oklch(82.901% 0.17115 81.038);
 }
 
 @keyframes scroller2 {
@@ -314,7 +312,6 @@ input[type=number] {
   93% { transform: translateX(-200%); }
   to { transform: translateX(-300%); }
 }
-
 
 @keyframes scroller3 {
   from { transform: translateX(0); }
