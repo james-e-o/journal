@@ -4,25 +4,18 @@ import { Button } from "@/components/ui/button";
 
 const features = [
   {
-    title: "Track sales in real time.",
-    desc: "Monitor every transaction instantly from anywhere."
+    title: "The Intelligent Investor.",
+    desc: "by Benjamin Graham."
   },
   {
-    title: "Manage staff on-site.",
-    desc: "Assign roles, monitor activity, and keep everything in sync."
+    title: "The Disciplined Trader.",
+    desc: "by Mark Douglas."
   },
   {
-    title: "Manage stock in store.",
-    desc: "Stay updated with inventory levels and avoid stockouts."
+    title: "Trading In The Zone.",
+    desc: "by Mark Douglas."
   },
-  {
-    title: "Control purchases with ease.",
-    desc: "Simplify ordering and procurement with streamlined tools."
-  },
-  {
-    title: "All-in-one dashboard.",
-    desc: "Everything you need in one simple interface."
-  }
+
 ];
 
 export default function FeatureScroller() {
@@ -63,7 +56,7 @@ export default function FeatureScroller() {
           {features.map((item, index) => (
               <div
               key={index}
-              className=" h-full flex scroll_item items-center justify-center bg-green-500 text-white text-2xl font-bold"
+              className=" h-full flex scroll_item items-center justify-center bg-core/10 text-white text-2xl font-bold"
             >
               {item.title}
             </div>
@@ -71,7 +64,7 @@ export default function FeatureScroller() {
         </div>
       </div>
     </div>
-      <Button className='rounded-full text-zinc-950 ml-2.5 md:ml-9 w-fit h-12 px-7 py-2 bg-amber-400 border-[3px] border-zinc-500'>Get Resources</Button>
+      <Button className='rounded-full text-zinc-950 ml-2.5 md:ml-9 w-fit h-12 px-7 py-2 bg-core border-[3px] border-zinc-500'>Get Resources</Button>
     </div>
   );
 }
