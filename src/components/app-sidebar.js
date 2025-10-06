@@ -168,16 +168,16 @@ export function AppSidebar({ ...props }) {
         <SidebarGroup>
             <SidebarGroupLabel>Platform2</SidebarGroupLabel>
             <SidebarMenu>
-                <NoCollapsibleButton className={``} url={'/alt-user'} title={'My Models'} icon={LayoutDashboard} active={false} name={'Dashboard'}/>
+                <NoCollapsibleButton className={``} url={'/user'} title={'My Models'} icon={LayoutDashboard} active={false} name={'Dashboard'}/>
                 <NoCollapsibleButton className={``} url={'#'} title={'My Models'} icon={ChartCandlestick} active={false} name={'Charts'}/>
-                <NoCollapsibleButton className={``} url={'/alt-user/accounts'} title={'My Models'} icon={FileChartLine} active={false} name={'Accounts'}/>
-                <NoCollapsibleButton className={``} url={'/alt-user/trades'} title={'My Models'} icon={FileChartLine} active={false} name={'Trades'}/>
-                <NoCollapsibleButton className={``} url={'/alt-user/trades'} title={'My Models'} icon={FileChartLine} active={false} name={'Journals'}/>
-                <CollapsibleButton className={``} title={'Playground'} icon={SquareTerminal} items={[
+                <NoCollapsibleButton className={``} url={'/user/accounts'} title={'My Models'} icon={FileChartLine} active={false} name={'Accounts'}/>
+                <NoCollapsibleButton className={``} url={'/user/trades'} title={'My Models'} icon={FileChartLine} active={false} name={'Trades'}/>
+                <NoCollapsibleButton className={``} url={'/user/journals'} title={'My Models'} icon={FileChartLine} active={false} name={'Journals'}/>
+                {/* <CollapsibleButton className={``} title={'Playground'} icon={SquareTerminal} items={[
                     {title:'History',url:'#'},
                     {title:'Starred',url:'#'},
                     {title:'Settings',url:'#'},
-                ]}/>
+                ]}/> */}
                
             </SidebarMenu>
         </SidebarGroup>

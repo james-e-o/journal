@@ -1,4 +1,4 @@
-import { Candle } from "../user/new-account/page";
+import { Candle } from "@/components/candle";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { TriangleAlert } from "lucide-react";

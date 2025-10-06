@@ -41,7 +41,7 @@ const NewAccount = () => {
                 <div className="scale-95 sm:scale-100 w-full">
                     <p className="font-semibold w-full md:w-4/5 text-start flex justify-between items-center md:mx-auto md:mt-4 p-1 text-sm text-white">
                         <span>New Journal Account</span> 
-                        <Link className="md:hidden" href={'/alt-user/accounts'}><Button variant={'outline'} className={'px-8 text-black h-6 w-16 cursor-pointer bg-[#fafafa]'}><X /></Button></Link>
+                        <Link className="md:hidden" href={'/user/accounts'}><Button variant={'outline'} className={'px-8 text-black h-6 w-16 cursor-pointer bg-[#fafafa]'}><X /></Button></Link>
                     </p>
                     <TabsList  className={'flex w-4/5 mt-3 md:mt-8 mx-auto items-start gap-4 md:gap-9 h-fit md:flex-col bg-transparent'}>
                         <TabsTrigger onClick={()=>{setActiveTab('basic')}} className="font-medium new text-start p-0 flex justify-start bg-transparent rounded-none" value="basic">
@@ -81,7 +81,7 @@ const NewAccount = () => {
             </div>
             <div className="text-start col-span-2 px-4 md:px-10 py-4 h-full flex-col mb-1 flex font-WixMade flex-grow tracking-tighter text-xl font-semibold">
                 <div className="hidden md:flex relative -top-2 justify-end">
-                    <Link href={'/alt-user/accounts'}><Button variant={'outline'} className={'px-8 w-16 cursor-pointer bg-[#fafafa]'}><X /></Button></Link>
+                    <Link href={'/user/accounts'}><Button variant={'outline'} className={'px-8 w-16 cursor-pointer bg-[#fafafa]'}><X /></Button></Link>
                 </div>
                 <div className="flex-grow">
                 {
