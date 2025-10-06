@@ -79,7 +79,7 @@ export default TradeAccount
                 
                 <nav className='justify-end gap-4 flex'>
                   <SheetTrigger asChild ><Button variant={'ghost'} className={'h-8 cursor-pointer'}><FileUser className='size-6'/></Button></SheetTrigger>
-                  <Link href='/user/trade-account/risk-calculator'><Button variant={'ghost'} className={'h-8 cursor-pointer'}><Calculator className='size-6 '/></Button></Link>
+                  <Link href='/user/accounts/trade-account/risk-calculator'><Button variant={'ghost'} className={'h-8 cursor-pointer'}><Calculator className='size-6 '/></Button></Link>
                   <SheetTrigger asChild ><Button variant={'ghost'} className={'h-8 cursor-pointer'}><Settings className='size-6'/></Button></SheetTrigger>                 
                 </nav>
               </div>
@@ -102,7 +102,7 @@ export default TradeAccount
             <header className=' flex justify-between gap-2.5 items-center p-3 bg-white shadow-xs rounded-md'>
               <p className='font-semibold font-WixMade tracking-tight text-black overflow-ellipsis whitespace-nowrap overflow-hidden text-sm'>Car Maintenance Account</p>
               
-              <Link href={'/user/trade-account/new-journal'}><Button className={'from-amber-300 tracking-tight opacity-90  mr-0.5 cursor-pointer items-center flex font-WixMade rounded-full h-5 to-[gold] bg-gradient-to-t text-zinc-950 p-4 px-5 border-[3px] border-zinc-300 text-[13px] font-bold'}><Plus/>New Journal</Button></Link>
+              <Link href={'/user/accounts/trade-account/new-journal'}><Button className={'from-amber-300 tracking-tight opacity-90  mr-0.5 cursor-pointer items-center flex font-WixMade rounded-full h-5 to-[gold] bg-gradient-to-t text-zinc-950 p-4 px-5 border-[3px] border-zinc-300 text-[13px] font-bold'}><Plus/>New Journal</Button></Link>
               
               <Link className='lg:hidden  flex mt-0 relative justify-end gap-4' href={'/user'}>
                 <div >
@@ -117,11 +117,11 @@ export default TradeAccount
                 </div>
                 
                 <nav className='justify-end gap-3 flex'>
-                  <Link onClick={()=>{setExtension(false)}} href='/user/trade-account'><Button variant={'ghost'} className={'h-8 cursor-pointer'}><Calendar className='size-6 '/></Button></Link>
-                  <Link onClick={()=>{setExtension(false)}} href='/user/trade-account/info'><Button variant={'ghost'} className={'h-8 cursor-pointer'}><Info className='size-6 '/></Button></Link>
-                  <Link onClick={()=>{setExtension(false)}} href='/user/trade-account/journals'><Button variant={'ghost'} className={'h-8 cursor-pointer'}><NotepadText className='size-6 '/></Button></Link>
+                  <Link onClick={()=>{setExtension(false)}} href='/user/accounts/trade-account'><Button variant={'ghost'} className={'h-8 cursor-pointer'}><Calendar className='size-6 '/></Button></Link>
+                  <Link onClick={()=>{setExtension(false)}} href='/user/accounts/trade-account/info'><Button variant={'ghost'} className={'h-8 cursor-pointer'}><Info className='size-6 '/></Button></Link>
+                  <Link onClick={()=>{setExtension(false)}} href='/user/accounts/trade-account/journals'><Button variant={'ghost'} className={'h-8 cursor-pointer'}><NotepadText className='size-6 '/></Button></Link>
                   <Button variant={'ghost'} onClick={()=>{setExtension(true)}} className={'h-8 cursor-pointer'}><ChartCandlestick className='size-6 '/></Button>
-                  <Link onClick={()=>{setExtension(false)}} href='/user/trade-account/risk-calculator'><Button variant={'ghost'} className={'h-8 cursor-pointer'}><Calculator className='size-6 '/></Button></Link>
+                  <Link onClick={()=>{setExtension(false)}} href='/user/accounts/trade-account/risk-calculator'><Button variant={'ghost'} className={'h-8 cursor-pointer'}><Calculator className='size-6 '/></Button></Link>
                 </nav>
               </div>
               <div className='flex flex-col mt-2 rounded-md overflow-hidden bg-white flex-grow'>
