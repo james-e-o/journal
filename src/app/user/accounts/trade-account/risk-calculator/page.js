@@ -2,7 +2,7 @@
 import {useEffect, useState} from 'react'
 import { Label } from '@/components/ui/label';
 import { Input } from '@/components/ui/input';
-import { ComboDropTemplate } from '../../accounts/new-account/page';
+import { ComboDropTemplate } from '../../new-account/page';
 import { Button,buttonVariants } from '@/components/ui/button';
 import { el } from 'date-fns/locale';
 
