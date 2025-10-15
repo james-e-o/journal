@@ -20,7 +20,7 @@ const SignUp = () => {
   const [error,setError] = useState(false)
   const [errorMessage,setErrorMessage] = useState('')
   const [isLoading,setIsLoading] = useState(false)
-  const [_data, _setData] = useState(null)
+  // const [_data, _setData] = useState(null)
   const message = {
     emailError:'valid email address required',
     passwordError :'password must have at least 8 characters that includes at least number',
@@ -50,7 +50,7 @@ const SignUp = () => {
               email: email,
               password: password,
               options:{
-                emailRedirectTo:`http://localhost:3000/users/${data&&data.user.id}`
+                emailRedirectTo:`http://localhost:3000/users`
               }
             })
 
