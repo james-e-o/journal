@@ -1,32 +1,42 @@
 "use client"
 
-import * as React from "react"
-import {
-  ChevronDownIcon,
-  ChevronLeftIcon,
-  ChevronRightIcon,
-} from "lucide-react"
-import { DayPicker, getDefaultClassNames } from "react-day-picker";
-
+import React, {useState,useEffect,useContext,useRef} from "react"
 import { cn } from "@/lib/utils"
+import { DateRange } from "react-day-picker"
+import {ChevronDownIcon,ChevronLeftIcon,ChevronRightIcon, WholeWord} from "lucide-react"
+import { DayPicker, getDefaultClassNames } from "react-day-picker";
 import { Button, buttonVariants } from "@/components/ui/button"
+import { Card, CardContent, CardFooter } from "@/components/ui/card"
+import { DataContext } from "@/app/users/[user]/layout"
 
 export const defaultClassNames = getDefaultClassNames()
 
-function Calendar({
-  className,
-  classNames,
-  showOutsideDays = true,
-  captionLayout = "label",
-  buttonVariant = "ghost",
-  formatters,
-  components,
-  ...props
-}) {
+function Calendar({className,classNames,showOutsideDays = true,captionLayout = "label",buttonVariant = "ghost",formatters,components,...props}) {
   // const defaultClassNames = getDefaultClassNames()
-
+  const {data,setData} = useContext(DataContext)
+  useEffect(() => {
+    const weekH= document.querySelector('.rdp-week')
+    const weeksH= document.querySelector('.rdp-weeks')
+    console.log(weeksH,weeksH?.clientHeight)
+    const updateHeights=()=>{
+      setData(prev=>({
+        ...prev,
+        weeksHeight:weeksH?.clientHeight,
+        weekHeight:weekH?.clientHeight,
+      }))
+    }
+    updateHeights() 
+    window.addEventListener('resize', setData(prev=>({
+        ...prev,
+        weeksHeight:weeksH?.clientHeight,
+        weekHeight:weekH?.clientHeight,
+      })))
+    // return () => window.removeEventListener('resize',updateHeights)
+  }, [setData]);
   return (
     <DayPicker
+      // weeksHeight={weeksH?.clientHeight}
+      // weekHeight={weekH?.clientHeight}
       showOutsideDays={showOutsideDays}
       className={cn(
         "bg-background group/calendar p-3 [--cell-size:--spacing(8)] [[data-slot=card-content]_&]:bg-transparent [[data-slot=popover-content]_&]:bg-transparent",
@@ -75,19 +85,19 @@ function Calendar({
           ? "text-sm"
           : "rounded-md pl-2 pr-1 flex items-center gap-1 text-sm h-8 [&>svg]:text-muted-foreground [&>svg]:size-3.5", defaultClassNames.caption_label),
         table: "w-full border-collapse",
-        weekdays: cn("flex", defaultClassNames.weekdays),
+        weekdays: cn("flex ", defaultClassNames.weekdays),
         weekday: cn(
           "text-muted-foreground rounded-md flex-1 font-normal text-[0.8rem] select-none",
           defaultClassNames.weekday
         ),
-        week: cn("flex w-full mt-2", defaultClassNames.week),
+        week: cn("flex gap-1 w-full mt-2", defaultClassNames.week),
         week_number_header: cn("select-none w-(--cell-size)", defaultClassNames.week_number_header),
         week_number: cn(
           "text-[0.8rem] select-none text-muted-foreground",
           defaultClassNames.week_number
         ),
         day: cn(
-          "relative w-full h-full p-0 text-center [&:first-child[data-selected=true]_button]:rounded-l-md [&:last-child[data-selected=true]_button]:rounded-r-md group/day aspect-square select-none",
+          "relative w-full h-full p-0 text-center bg-green-400 [&:first-child[data-selected=true]_button]:rounded-l-md [&:last-child[data-selected=true]_button]:rounded-r-md group/day aspect-square select-none",
           defaultClassNames.day
         ),
         range_start: cn("rounded-l-md bg-accent", defaultClassNames.range_start),
@@ -177,3 +187,99 @@ function CalendarDayButton({
 }
 
 export { Calendar, CalendarDayButton }
+
+
+export function CalendarMain() {
+    const {data,setData} = useContext(DataContext)
+    const [mode, setMode] = useState('single')
+    const [range, setRange] = useState({
+      from: new Date(2025, 5, 12),
+      to: new Date(2025, 5, 17),
+    })
+    const [date, setDate] = useState(new Date(2025, 5, 12))
+
+  //   useEffect(() => {
+  //   const weeksH= document.querySelector('.rdp-weeks')
+  //   const weekH= document.querySelector('.rdp-week')
+  //   console.log(weeksH,weeksH?.clientHeight)
+  //   const updateHeights=()=>{
+  //     setData(prev=>({
+  //       ...prev,
+  //       weeksHeight:weeksH?.clientHeight,
+  //       weekHeight:weekH?.clientHeight,
+  //     }))
+  //   }
+  //   updateHeights() 
+  //   // window.addEventListener('resize',updateHeights)
+  //   // return () => window.removeEventListener('resize',updateHeights)
+  // }, [setData]);
+  //  const { setData } = useContext(DataContext);
+  // const targetRef = useRef(null);
+
+  // useEffect(() => {
+  //   const element = targetRef.current;
+  //   const weekH= document.querySelector('.rdp-week')
+  //   // if (!element) return;
+
+  //   const observer = new ResizeObserver((entries) => {
+  //     for (let entry of entries) {
+  //       setData((prev) => ({
+  //         ...prev,
+  //         weekHeight: entry.contentRect.height,
+  //       }));
+  //     }
+  //   });
+
+  //   observer.observe(weekH);
+  //   // return () => observer.disconnect();
+  // }, []);
+
+  return (
+     <Card className="gap-0 p-0 w-fit overflow-clip">
+      <CardContent className="relative flex w-fit p-0 ">
+        <div className="p-0 gap-0 flex">
+            <Calendar
+                mode={mode}
+                defaultMonth={mode==='range'?range?.from:mode==='single'?date:undefined}
+                selected={mode==='range'?range:mode==='single'?date:undefined}
+                onSelect={mode==='range'?setRange:mode==='single'?setDate:undefined}
+                numberOfMonths={1}
+                captionLayout="dropdown"
+                className="rounded-lg md:w-[34rem] [--cell-size:--spacing(11)] md:[--cell-size:--spacing(13)]"
+                formatters={{
+                    formatMonthDropdown: (date) => {
+                    return date.toLocaleString("default", { month: "long" })
+                    },
+                }}
+                components={{
+                DayButton: ({ children, modifiers, day, ...props }) => {
+                const isWeekend = day.date.getDay() === 0 || day.date.getDay() === 6
+
+                return (
+                    <CalendarDayButton day={day} altClass={''} modifiers={modifiers} {...props}>
+                    {children}
+                    {!modifiers.outside && <span>{isWeekend ? "$220" : "$100"}</span>}
+                    </CalendarDayButton>
+                )
+                },
+            }}
+            />
+            </div>
+            <div className=" flex max-h-72 scroll-pb-6 flex-col gap-4 overflow-y-auto border-t p-3 md:max-h-none w-36  md:border-l">
+                <div className="bg-white w-full flex-col flex justify-end gap-2 h-full">
+                  <div className=" w-full">
+                    {data.weeksHeight && (
+                      <>
+                    <div style={{height: data.weekHeight}} className={`border-2 p-2 h-[${data.weekHeight}px] w-full shadow-xs rounded-lg mt-2`}>test</div>
+                    <div style={{height: data.weekHeight}} className={`border-2 p-2 h-[${data.weekHeight}px] w-full shadow-xs rounded-lg mt-2`}>test</div>
+                    <div style={{height: data.weekHeight}} className={`border-2 p-2 h-[${data.weekHeight}px] w-full shadow-xs rounded-lg mt-2`}>test</div>
+                    <div style={{height: data.weekHeight}} className={`border-2 p-2 h-[${data.weekHeight}px] w-full shadow-xs rounded-lg mt-2`}>test</div>
+                    <div style={{height: data.weekHeight}} className={`border-2 p-2 h-[${data.weekHeight}px] w-full shadow-xs rounded-lg mt-2`}>test</div>
+                    </>)}
+                  </div>
+                </div>
+            </div>
+        </CardContent>
+    </Card>
+  )
+}

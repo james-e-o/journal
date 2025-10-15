@@ -440,10 +440,14 @@ function SidebarMenu({
 
 function SidebarMenuItem({
   className,
+  mobileCollapse,
+  onRequestCollapse,
   ...props
 }) {
+  const { isMobile,setOpen,setOpenMobile, state,toggleSidebar } = useSidebar()
   return (
     <li
+      onClick={()=>{mobileCollapse&&isMobile?setOpenMobile(false):''}}
       data-slot="sidebar-menu-item"
       data-sidebar="menu-item"
       className={cn("group/menu-item relative", className)}

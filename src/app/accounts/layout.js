@@ -1,24 +1,30 @@
+'use client'
 import { Candle } from "@/components/candle";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { TriangleAlert } from "lucide-react";
+import { Toaster } from "@/components/ui/sonner"
+import { ToastProvider } from "@/components/custom-toast";
 
-export default function AccountsLayout({ children }) {
-  
+
+export default function AccountsLayout({ children }) {  
     return (   
        <div className='overflow-hidden h-full '>
             <div className='h-svh flex font-Inter border-b backdrop-blur-md flex-col'>
                 <div className="flex w-full flex-grow"> 
-                     <div className="px-5 pb-1 overflow-clip md:w-5/12 pt-4 flex bg-white md:shadow-xs shadow-gray-200 flex-col relative justify-start  items-center flex-grow">
+                     <div className="px-5 pb-1 overflow-clip md:w-5/12 flex bg-white md:shadow-xs shadow-gray-200 flex-col relative justify-start  items-center flex-grow">
+                        <Toaster className={'text-black bg-amber-400'}/>
                         {/* <div className="absolute size-40 -top-20 -left-14 rounded-full border-[20px] bg-transparent border-yellow-400"></div> */}
                         {/* <div className="absolute size-40 -bottom-14 -right-11 rounded-full border-[20px] bg-transparent border-yellow-400"></div> */}
-                        <Candle color="bg-amber-400 scale-150" left={'1%'} top={'-5%'} />
-                        <Candle color="bg-amber-400 scale-150" left={'5%'}  top={'0%'}/>
-                        <Candle color="bg-amber-400 scale-150" left={'9%'} top={'5%'} />
-                        <Candle color="bg-amber-400 scale-150" left={'86%'} top={'89%'} wickTop={27} wickBottom={0}/>
-                        <Candle color="bg-amber-400 scale-150" left={'90%'} top={'92.5%'} wickTop={30} wickBottom={0} bodyHeight={15}/>
-                        <Candle color="bg-amber-400 scale-150" left={'94%'} top={'83%'} wickBottom={0} wickTop={25} bodyHeight={55}/>
-                        {children}  
+                        <Candle color="bg-amber-400 scale-150" opacity={'50%'} left={'1%'} top={'-5%'} />
+                        <Candle color="bg-amber-400 scale-150" opacity={'50%'} left={'5%'}  top={'0%'}/>
+                        <Candle color="bg-amber-400 scale-150" opacity={'50%'} left={'9%'} wickBottom={45} bodyHeight={5} top={'5.2%'} />
+                        <Candle color="bg-amber-400 scale-150" opacity={'50%'} left={'86%'} top={'89%'} wickTop={27} wickBottom={0}/>
+                        <Candle color="bg-amber-400 scale-150" opacity={'50%'} left={'90%'} top={'92.5%'} wickTop={30} wickBottom={0} bodyHeight={15}/>
+                        <Candle color="bg-amber-400 scale-150" opacity={'50%'} left={'94%'} top={'83%'} wickBottom={0} wickTop={25} bodyHeight={55}/>
+                        <ToastProvider>                           
+                            {children}  
+                        </ToastProvider>
                          <Link className="relative bottom-[10%]" href={'/user'}><Button  className="hover:bg-transparent font-semibold  p-8 mt-4 bg-blue-400 hover:opacity-100"><TriangleAlert className="text-white"/> <span className="text-white">Site is under construction <br /> take a tour</span></Button></Link>
                      </div>  
                     <div className={`hidden w-8/12 md:flex items-center relative overflow-hidden opacity-90 before:absolute bg-center bg-green-500 justify-center`}>

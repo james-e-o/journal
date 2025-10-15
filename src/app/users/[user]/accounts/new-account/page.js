@@ -274,6 +274,7 @@ export const ComboDropTemplate = ({value,setValue,list,data,b_placeholder,s_plac
 }
 
 
+
 export const Candle = ({
   bodyHeight = 40,   // body height
   bodyWidth = 12,    // body width

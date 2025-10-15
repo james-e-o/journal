@@ -13,7 +13,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover"
 
-export function Calendar23() {
+export function Calendar23({buttoHeight,buttonWidth}) {
   const [range, setRange] = useState(undefined)
 
   return (
@@ -23,7 +23,7 @@ export function Calendar23() {
           <Button
             variant="outline"
             id="dates"
-            className="w-[15.5rem] justify-between font-normal"
+            className={`${buttonWidth || 'w-[15rem] '} ${buttoHeight || 'h-8'} justify-between font-normal`}
           >
             {range?.from && range?.to
               ? `${range.from.toLocaleDateString()} - ${range.to.toLocaleDateString()}`

@@ -6,10 +6,8 @@ import { XIcon } from "lucide-react"
 
 import { cn } from "@/lib/utils"
 
-function Dialog({
-  ...props
-}) {
-  return <DialogPrimitive.Root data-slot="dialog" {...props} />;
+function Dialog({dialogOpen,setDialogOpen,...props}) {
+  return <DialogPrimitive.Root open={dialogOpen} onOpenChange={setDialogOpen} data-slot="dialog" {...props} />;
 }
 
 function DialogTrigger({

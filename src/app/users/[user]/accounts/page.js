@@ -7,24 +7,26 @@ import React from 'react'
 
 const TradeAccounts = () => {
   return (
-    <div className='px-4'>
+    <div className=''>
         <Header />
-        <div className='flex mb-1 items-center px-3 py-2 justify-between'>
-            <p className='font-medium '>Trade Accounts</p>
-            <Link href={'/user/accounts/new-account'}><Button className={'cursor-pointer'}><Plus/>New account</Button></Link> 
-        </div>
-        <div>
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                <Link href={'/user/accounts/trade-account'}><TradeAccountCard
-                    name="ICMarkets Main"broker="ICMarkets"platform="MT5"type="Live"balance={10245.8}equity={10180.32}profitLoss={245.8}winRate={61}totalTrades={52}currency="$"lastUpdated="Oct 5, 2025" /></Link>
-                <Link href={'/user/accounts/trade-account'}><TradeAccountCard
-                    name="FTMO Challenge"broker="FTMO"platform="MT4"type="Challenge"balance={4990}equity={4975}profitLoss={-15}winRate={54}totalTrades={38}currency="$"lastUpdated="Oct 4, 2025"/></Link>
-                 <Link href={'/user/accounts/trade-account'}><TradeAccountCard name="OANDA Practice" broker="OANDA" platform="MT5" type="Demo" balance={4850.25} equity={4820.40} profitLoss={-29.85} winRate={57} totalTrades={34} currency="$" lastUpdated="Oct 5, 2025"/></Link>
+        <div className='md:px-5 px-3'>
+          <div className='flex mb-1 items-center py-2 justify-between'>
+              <p className='font-medium '>Trade Accounts</p>
+              <Link href={'/user/accounts/new-account'}><Button className={'cursor-pointer'}><Plus/>New account</Button></Link> 
+          </div>
+          <div>
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                  <Link href={'/user/accounts/trade-account'}><TradeAccountCard
+                      name="ICMarkets Main"broker="ICMarkets"platform="MT5"type="Live"balance={10245.8}equity={10180.32}profitLoss={245.8}winRate={61}totalTrades={52}currency="$"lastUpdated="Oct 5, 2025" /></Link>
+                  <Link href={'/user/accounts/trade-account'}><TradeAccountCard
+                      name="FTMO Challenge"broker="FTMO"platform="MT4"type="Challenge"balance={4990}equity={4975}profitLoss={-15}winRate={54}totalTrades={38}currency="$"lastUpdated="Oct 4, 2025"/></Link>
+                  <Link href={'/user/accounts/trade-account'}><TradeAccountCard name="OANDA Practice" broker="OANDA" platform="MT5" type="Demo" balance={4850.25} equity={4820.40} profitLoss={-29.85} winRate={57} totalTrades={34} currency="$" lastUpdated="Oct 5, 2025"/></Link>
 
-                {/* Funded Account Example */}
-                <Link href={'/user/accounts/trade-account'}><TradeAccountCard name="MyFundedFX Account" broker="MyFundedFX" platform="MT4" type="Funded" balance={50235.70} equity={50480.20} profitLoss={245.50} winRate={68} totalTrades={123} currency="$" lastUpdated="Oct 5, 2025"/></Link>
+                  {/* Funded Account Example */}
+                  <Link href={'/user/accounts/trade-account'}><TradeAccountCard name="MyFundedFX Account" broker="MyFundedFX" platform="MT4" type="Funded" balance={50235.70} equity={50480.20} profitLoss={245.50} winRate={68} totalTrades={123} currency="$" lastUpdated="Oct 5, 2025"/></Link>
 
-            </div>
+              </div>
+          </div>
         </div>
     </div>
   )

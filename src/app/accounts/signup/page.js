@@ -4,26 +4,34 @@ import Link from "next/link"
 import { useEffect, useState } from "react"
 import { Eye, EyeOff,LogIn,MoveLeft,MoveRight, Quote, Rocket, TriangleAlert } from "lucide-react"
 import { isEmpty,isEmail,isLength,matches } from "validator"
-
-
-
+import { supabase } from "../../../../config/supabaseClient"
+import { Spinner } from "@/components/ui/spinner"
+import { useToast } from "@/components/custom-toast"
+import { useRouter } from "next/navigation"
+import {AlertDialog,AlertDialogAction,AlertDialogCancel,AlertDialogContent,AlertDialogDescription,AlertDialogFooter,AlertDialogHeader,AlertDialogTitle,AlertDialogTrigger,} from "@/components/ui/alert-dialog"
+import { Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogOverlay, DialogPortal, DialogTitle, DialogTrigger,} from "@/components/ui/dialog"
 
 const SignUp = () => {
 
+  const [dialogOpen,setDialogOpen] = useState(false)
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [passwordValidate, setPasswordValidate] = useState('')
   const [error,setError] = useState(false)
   const [errorMessage,setErrorMessage] = useState('')
+  const [isLoading,setIsLoading] = useState(false)
+  const [_data, _setData] = useState(null)
   const message = {
     emailError:'valid email address required',
     passwordError :'password must have at least 8 characters that includes at least number',
     validateError :'password does not match',
   }
 
+  const toast = useToast();
+  const router = useRouter()
 
 
-  function Submit(e){
+  async function Submit(e){
     e.preventDefault()
     setError(false)
     setErrorMessage('')
@@ -31,19 +39,54 @@ const SignUp = () => {
    
     if(isEmpty(email) || !isEmail(email)){setError(true),setErrorMessage(message.emailError); return}
     else if(isEmpty(password)||!isLength(password,{min:8})||!matches(password,/[0-9]/)){setError(true),setErrorMessage(message.passwordError); return}
-    else if(isEmpty(passwordValidate||!(passwordValidate==password))){setError(true),setErrorMessage(message.validateError); return} else console.log('logged')
+    else if(isEmpty(passwordValidate)||passwordValidate!==password){setError(true),setErrorMessage(message.validateError); return}
+    else {
+      // console.log('successfull',password,passwordValidate)
+      
+      setIsLoading(true)
+        try {
+          // Network call to Supabase
+            let { data, error } = await supabase.auth.signUp({
+              email: email,
+              password: password,
+              options:{
+                emailRedirectTo:`http://localhost:3000/users/${data&&data.user.id}`
+              }
+            })
 
-    // console.log(businessMail,password,email)
 
+          if (error) {
+            // Supabase reached, but login failed (wrong credentials, etc.)
+            setIsLoading(false)
+            toast(error)
+            setError(true)
+            console.log("Supabase auth error:", error)
+            return
+          }
+
+          if (data?.user) {
+            setDialogOpen(true)
+            setIsLoading(false)
+            console.log("User logged in:", data,data.user)
+          }
+
+        } catch (err) {
+          // Request itself failed (network issue, CORS, etc.)
+          setIsLoading(false)
+          setError(true)
+          toast("Network error, Retry", {className:'bg-red-500 text-white'})
+          console.log("Network or unexpected error:", err)
+        }
+
+    }
   }
-  useEffect(()=>{
-    console.log(email)
-  },[email])
 
   return (
-  
-      <div className="px-5 pb-1 w-10/12 md:w-7/12 pt-10 flex flex-col justify-start items-center flex-grow">
-        <p className=" pb-0 px-5 text-center mt-5 text-base relative font-semibold ">Get Started!</p>
+    <AlertDialog setDialogOpen={setDialogOpen} dialogOpen={dialogOpen}>
+      <div className="px-5 pb-1 w-10/12 md:w-9/12 pt-14 flex flex-col justify-start items-center flex-grow">
+      <AlertDialogTrigger>
+        <p  className=" pb-0 px-5 text-center mt-5 text-base relative font-semibold ">Get Started!</p>
+      </AlertDialogTrigger>
 
         <div className='rounded-md relative w-full p-1 mt-4'>
           <div className="w-full h-fit relative overflow-hidden ">
@@ -52,30 +95,51 @@ const SignUp = () => {
                     <Indiv clearErr={()=>setError(false)} value={password} setValue={(data)=>{setPassword(data)}} icon={true} error ={error && errorMessage==message.passwordError &&(message.passwordError)} type={'password'} altType={'text'} name={"password"} placehold={"Password"}/> 
                     <Indiv clearErr={()=>setError(false)} value={passwordValidate} setValue={(data)=>{setPasswordValidate(data)}} icon={true} error ={error && errorMessage==message.validateError &&(message.validateError)} type={'password'} altType={'text'} name={"password"} placehold={"re-enter Password"}/> 
                         
-                    <Button onClick={Submit} className="text-sm mt-4 font-semibold text-zinc-950 hover:bg-yellow-500 bg-yellow-400 w-full h-10 rounded-[0.4rem]" >Sign up</Button>
+                    <Button disabled={isLoading} onClick={Submit} className="text-sm mt-4 cursor-pointer font-semibold text-zinc-950 hover:bg-yellow-500 bg-yellow-400 w-full h-10 rounded-[0.4rem]" >{isLoading&&<Spinner spinning={isLoading}/>}Sign up</Button>
                 </form>
                 <p className="w-full pl-1 mt-1"><Link className="text-gray-500 text-[0.73rem] decoration-none" href={'signin'}>already have an account?  <span className="text-black  text-xs"> Sign in</span></Link></p>
                 <div className="items-center mx-1 mt-6 relative w-full px-2 after:absolute after:border-b after:min-w-[20%] after:right-0 after:border-gray-400 after:my-0 before:absolute before:border-b before:min-w-[20%] before:left-0 before:border-gray-400 before:my-0 flex justify-center"><span className="text-gray-800 relative -top-[2px] text-xs">or continue with</span></div>
                 <div className="flex justify-center mt-2 gap-3 items-center">
-                    <Button className="text-sm mt-4 font-medium w-fit cursor-pointer text-gray-500 border-gray-400 rounded-[0.3rem]" variant='outline' >{google}</Button> 
-                    <Button className="text-sm mt-4 font-medium w-fit cursor-pointer text-gray-500 border-gray-400 rounded-[0.3rem]" variant='outline' >{x}</Button> 
-                    <Button className="text-sm mt-4 font-medium w-fit cursor-pointer text-gray-500 border-gray-400 rounded-[0.3rem]" variant='outline' >{apple}</Button> 
+                    <Button disabled={true} className="text-sm mt-4 font-medium w-fit cursor-pointer text-gray-500 border-gray-400 rounded-[0.3rem]" variant='outline' >{google}</Button> 
+                    <Button disabled={true} className="text-sm mt-4 font-medium w-fit cursor-pointer text-gray-500 border-gray-400 rounded-[0.3rem]" variant='outline' >{x}</Button> 
+                    <Button disabled={true} className="text-sm mt-4 font-medium w-fit cursor-pointer text-gray-500 border-gray-400 rounded-[0.3rem]" variant='outline' >{apple}</Button> 
                 </div>
             </div>
         </div>       
-        {/* <Link href={'/admin'}><Button variant='ghost' className="hover:bg-transparent p-8 mt-4 bg-amber-300 opacity-80 hover:opacity-100"><TriangleAlert className="text-red-500"/> <span className="text-black">Site is under construction <br /> take a tour</span></Button></Link> */}
-      </div>
+      </div>       
+            <AlertDialogContent className={''}>
+              <AlertDialogHeader>
+                <AlertDialogTitle>Confirm your email address</AlertDialogTitle>
+                <AlertDialogDescription className={'text-neutral-700'}>
+                  A confirmation link has been sent to your email <span className="text-green-700">{email&&email}</span>. Open your inbox and click the link to complete your sign-up.
+                </AlertDialogDescription>
+              </AlertDialogHeader>
+              <AlertDialogFooter>
+                <AlertDialogAction onClick={()=>{setEmail(''),setPassword(''),setPasswordValidate('')}} className={'h-8 -mt-1'}>Ok</AlertDialogAction>
+              </AlertDialogFooter>
+            </AlertDialogContent>
+
+    </AlertDialog>
   )
 }
+
+
+
+
 
 export const Indiv = ({name, value,setValue, placehold, type, error,clearErr,icon, altType}) => {
   const [inputFocus, setInputFocus] = useState(false)
   const [hide, setHide] =useState(true)
+  useEffect(()=>{
+   if (value === '' && !document.activeElement.closest(`div.inputdiv`)) {
+    setInputFocus(false);
+  }
+  },[value])
   return (
-    <div id='inputdiv' className={inputFocus?"my-7 w-full z-0 bg-transparent py-1 px-2 h-fit border-zinc-950 relative border rounded-md ":"my-7 w-full z-0 bg-transparent py-1 px-2 h-fit border-zinc-800 relative border rounded-md"}>
+    <div id='inputdiv' className={inputFocus?"my-7 inputdiv w-full z-0 bg-transparent py-1 px-2 h-fit border-zinc-950 relative border rounded-md ":" inputdiv my-7 w-full z-0 bg-transparent py-1 px-2 h-fit border-zinc-800 relative border rounded-md"}>
       <p aria-disabled className={inputFocus?"bg-amber-200 inline-block rounded ml-1 absolute text-zinc-700 text-[0.65rem] transition-all -top-2 px-1 py-0 -z-[1]":"bg-transparent inline-block rounded ml-1 absolute text-zinc-700 text-sm transition-all top-3 px-1 py-0 -z-[1]"}>{placehold}</p>
       {/* {icon && inputFocus?<div className="left-[88%] top-2 absolute inline-block z-20" onClick={()=>setHide(!hide)}>{hide?<Eye className='w-4 h-4'/>:<EyeOff className='w-4 h-4'/>}</div>:""} */}
-      <input value={value} className="border-none outline-none bg-transparent h-9 top-[0.54rem] w-full z-20 pl-1" name={name} onInput={(e)=>{e.preventDefault(),setValue(e.target.value),clearErr}} onFocus={(e)=>{e.preventDefault(); setInputFocus(true)}} onBlur={(e)=>{ if (e.target.value.length===0) {setInputFocus(false); if(!hide)setHide(!hide)} else {setInputFocus(true)}}} type={!hide?altType:type}/>
+      <input value={value} className="border-none outline-none bg-transparent h-9 top-[0.54rem] w-full z-20 pl-1" name={name} onInput={(e)=>{e.preventDefault(),clearErr(),setValue(e.target.value)}} onFocus={(e)=>{e.preventDefault(); setInputFocus(true)}} onBlur={(e)=>{ if (e.target.value.length===0) {setInputFocus(false); if(!hide)setHide(!hide)} else {setInputFocus(true)}}} type={!hide?altType:type}/>
       <p className='absolute text-red-500 font-extralight leading-[1] italic top-12 text-[9px]'>{error}</p>
     </div>
   )

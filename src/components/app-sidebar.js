@@ -1,7 +1,7 @@
 "use client"
 
 import  React from "react"
-import { ArrowBigDownDash, AudioWaveform, BookOpen, Bot, ChartCandlestick, Command, FileChartLine, Frame, GalleryVerticalEnd, LayoutDashboard, Map, PieChart, Plus, Settings2, SquareTerminal,} from "lucide-react"
+import { ArrowBigDownDash, AudioWaveform, BookOpen, Bot, Calculator, ChartCandlestick, Command, FileChartLine, Frame, GalleryVerticalEnd, LayoutDashboard, Map, PieChart, Plus, Settings2, SquareTerminal,} from "lucide-react"
 import { Button,buttonVariants } from "@/components/ui/button";
 import Image from "next/image";
 import { Avatar,  AvatarImage, AvatarFallback } from "@/components/ui/avatar";
@@ -10,11 +10,13 @@ import { NavMain } from "@/components/nav-main"
 import { NavProjects } from "@/components/nav-projects"
 import { NavUser } from "@/components/nav-user"
 import { TeamSwitcher } from "@/components/team-switcher"
-import {  Sidebar,  SidebarContent,  SidebarFooter,  SidebarHeader,  SidebarRail,} from "@/components/ui/sidebar"
+import {  Sidebar,  SidebarContent,  SidebarFooter,  SidebarHeader,SidebarTrigger,  SidebarRail,} from "@/components/ui/sidebar"
 import { ChevronRight,  } from "lucide-react"
 import {  Collapsible,  CollapsibleContent,  CollapsibleTrigger,} from "@/components/ui/collapsible"
 import {  SidebarGroup,  SidebarGroupLabel,  SidebarMenu,  SidebarMenuButton,  SidebarMenuItem,  SidebarMenuSub,  SidebarMenuSubButton,  SidebarMenuSubItem,} from "@/components/ui/sidebar"
 
+
+import { useIsMobile } from "@/hooks/use-mobile";
 
 // This is sample data.
 const data = {
@@ -147,8 +149,10 @@ const data = {
 }
 
 export function AppSidebar({ ...props }) {
+   const isMobile = useIsMobile()
+
   return (
-    <Sidebar className={'bg-zinc-900'} collapsible="icon" {...props}>
+    <Sidebar  className={'bg-zinc-900'} collapsible="icon" {...props}>
       <SidebarHeader className={'bg-zinc-950 text-amber-400'} >
         <div className="flex pt-5 md:pt-8 justify-center">
             <Image className="dark:invert scale-75 md:scale-100 " src="/rayani3.png" alt="logo" width={50} height={50} priority />
@@ -166,18 +170,18 @@ export function AppSidebar({ ...props }) {
             </SidebarMenuButton>
         </SidebarGroup>
         <SidebarGroup>
-            <SidebarGroupLabel>Platform2</SidebarGroupLabel>
             <SidebarMenu>
                 <NoCollapsibleButton className={``} url={'/user'} title={'My Models'} icon={LayoutDashboard} active={false} name={'Dashboard'}/>
-                <NoCollapsibleButton className={``} url={'#'} title={'My Models'} icon={ChartCandlestick} active={false} name={'Charts'}/>
                 <NoCollapsibleButton className={``} url={'/user/accounts'} title={'My Models'} icon={FileChartLine} active={false} name={'Accounts'}/>
-                <NoCollapsibleButton className={``} url={'/user/trades'} title={'My Models'} icon={FileChartLine} active={false} name={'Trades'}/>
-                <NoCollapsibleButton className={``} url={'/user/journals'} title={'My Models'} icon={FileChartLine} active={false} name={'Journals'}/>
-                {/* <CollapsibleButton className={``} title={'Playground'} icon={SquareTerminal} items={[
-                    {title:'History',url:'#'},
-                    {title:'Starred',url:'#'},
-                    {title:'Settings',url:'#'},
-                ]}/> */}
+                <NoCollapsibleButton className={``} url={'/user/trades'} title={'Trades'} icon={FileChartLine} active={false} name={'Trades'}/>
+                <NoCollapsibleButton className={``} url={'/user/journals'} title={'Journals'} icon={FileChartLine} active={false} name={'Journals'}/>
+                <NoCollapsibleButton className={``} url={'#'} title={'My Models'} icon={ChartCandlestick} active={false} name={'Charts'}/>
+                <NoCollapsibleButton className={``} url={'/user/position-size-calculator'} title={'Lot size Calculator'} icon={Calculator} active={false} name={'Calculator'}/>
+                <CollapsibleButton className={``} title={'Resource centre'} icon={SquareTerminal} items={[
+                    {title:'Guides',url:'#'},
+                    {title:'Docs',url:'#'},
+                    {title:'Help',url:'#'},
+                ]}/>
                
             </SidebarMenu>
         </SidebarGroup>
@@ -192,7 +196,7 @@ export function AppSidebar({ ...props }) {
   )
 }
 
-const CollapsibleButton = ({title,icon,items }) => {
+const CollapsibleButton = ({title,icon,items,sidebarCollapse }) => {
    const item ={icon}
   return (
     <Collapsible key={title} asChild defaultOpen={false} className="group/collapsible my-0.5" >
@@ -200,7 +204,7 @@ const CollapsibleButton = ({title,icon,items }) => {
             <CollapsibleTrigger asChild>
             <SidebarMenuButton tooltip={title}>
                  {item.icon && <item.icon className='font-bold' />}
-                <span className="font-semibold ml-1">{title}</span>
+                <span className="font-medium text-xs ml-1">{title}</span>
                 <ChevronRight className="ml-auto transition-transform duration-200 group-data-[state=open]/collapsible:rotate-90" />
             </SidebarMenuButton>
             </CollapsibleTrigger>
@@ -208,9 +212,9 @@ const CollapsibleButton = ({title,icon,items }) => {
             <SidebarMenuSub>
                 {items?.map((subItem) => (
                 <SidebarMenuSubItem key={subItem.title}>
-                    <SidebarMenuSubButton className={`text-white`} asChild>
+                    <SidebarMenuSubButton className={`text-white text-xs`} asChild>
                     <Link href={subItem.url}>
-                        <span>{subItem.title}</span>
+                        <span className="font-medium text-xs ml-1">{subItem.title}</span>
                     </Link>
                     </SidebarMenuSubButton>
                 </SidebarMenuSubItem>
@@ -225,11 +229,11 @@ const CollapsibleButton = ({title,icon,items }) => {
 const NoCollapsibleButton = ({name,active,url,icon }) => {
     const item ={icon}
   return (
-    <SidebarMenuItem key={name} className={'my-0.5'}>
+    <SidebarMenuItem mobileCollapse={true}  key={name} className={'my-0.5'}>
         <SidebarMenuButton asChild isActive={active}>
             <Link href={url}>
                 {item.icon && <item.icon className='font-bold' />}
-                <span className="font-semibold ml-1">{name}</span>
+                <span className="font-medium text-xs ml-1">{name}</span>
             </Link>
         </SidebarMenuButton>
     </SidebarMenuItem>
