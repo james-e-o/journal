@@ -5,7 +5,8 @@ import { Indiv,google,x ,apple} from "../signup/page"
 import { useState } from "react"
 import { Eye, EyeOff,LogIn,MoveLeft,MoveRight, Quote, Rocket } from "lucide-react"
 import { isEmpty,isEmail,isLength,matches, } from "validator"
-import { supabase } from "../../../../config/supabaseClient"
+// import { supabase } from "../../../../config/supabaseClient"
+import { createBrowserClient } from "@supabase/ssr"
 import { Spinner } from "@/components/ui/spinner"
 import { useRouter } from "next/navigation"
 // import { toast } from "sonner"
@@ -18,6 +19,11 @@ const SignIn = () => {
   const [error,setError] = useState(false)
   const [errorMessage,setErrorMessage] = useState('')
   const [isLoading,setIsLoading] = useState(false)
+
+   const supabase = createBrowserClient(
+    process.env.NEXT_PUBLIC_SUPABASE_URL,
+    process.env.NEXT_PUBLIC_SUPABASE_KEY
+  )
   
   const message = {
     emailError:'valid email address required',
@@ -49,7 +55,6 @@ const SignIn = () => {
           if (error) {
             setIsLoading(false)
             setError(true)
-            setErrorMessage(message.passwordError2)
             alert(error.message);
             return;
           }
@@ -58,7 +63,7 @@ const SignIn = () => {
             setIsLoading(false)
             // ✅ session created and stored automatically
             const userId = data.user.id;
-            router.push(`/users/${userId}/dashboard`);
+            router.push(`/users/${userId}`);
           }
 
         } catch (err) {

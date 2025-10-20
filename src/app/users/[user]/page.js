@@ -29,21 +29,8 @@ import { ChartRadarDefault } from '@/components/_radar-chart';
 
 
 
-const UserMain = async ({params}) => {
-  const {user} = params
-    const {
-      data: { session },
-    } = await supabase.auth.getSession();
+const Dashboard = () => {
 
-    // If no session → redirect to login
-    if (!session) {
-      redirect("/accounts/signin");
-    }
-
-    // Prevent user from accessing another user's dashboard manually
-    if (session.user.id !== params) {
-      redirect(`/users/${session.user.id}/dashboard`);
-    }
 
   return (
    
@@ -82,7 +69,7 @@ const UserMain = async ({params}) => {
         </div>
         <div className='flex flex-col flex-grow gap-4 mt-2'>
 
-          <div className='text-green-600 text-base font-semibold'>{session.user.id}</div>
+          {/* <div className='text-green-600 text-base font-semibold'>{session.user.id}</div> */}
           <div className='grid gap-3  grid-cols-5'>
             <StatsCards/>
             <StatsCards/>
@@ -113,7 +100,7 @@ const UserMain = async ({params}) => {
   )
 }
 
-export default UserMain
+export default Dashboard
 
 
 export const ComboDropTemplate = ({value,setValue,list,data,b_placeholder,s_placeholder,comboSearch,comboWidth,buttonWidth,buttonHeight}) => {

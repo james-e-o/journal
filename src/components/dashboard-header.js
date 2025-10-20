@@ -1,4 +1,4 @@
-"use client";
+// "use client";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import {  Breadcrumb,  BreadcrumbList,  BreadcrumbItem,  BreadcrumbSeparator,  BreadcrumbLink,  BreadcrumbPage,

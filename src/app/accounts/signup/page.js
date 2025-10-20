@@ -4,12 +4,19 @@ import Link from "next/link"
 import { useEffect, useState } from "react"
 import { Eye, EyeOff,LogIn,MoveLeft,MoveRight, Quote, Rocket, TriangleAlert } from "lucide-react"
 import { isEmpty,isEmail,isLength,matches } from "validator"
-import { supabase } from "../../../../config/supabaseClient"
+// import { supabase } from "../../../../config/supabaseClient"
+import { createBrowserClient } from "@supabase/ssr"
 import { Spinner } from "@/components/ui/spinner"
 import { useToast } from "@/components/custom-toast"
 import { useRouter } from "next/navigation"
 import {AlertDialog,AlertDialogAction,AlertDialogCancel,AlertDialogContent,AlertDialogDescription,AlertDialogFooter,AlertDialogHeader,AlertDialogTitle,AlertDialogTrigger,} from "@/components/ui/alert-dialog"
 import { Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogOverlay, DialogPortal, DialogTitle, DialogTrigger,} from "@/components/ui/dialog"
+
+
+const supabase = createBrowserClient(
+ process.env.NEXT_PUBLIC_SUPABASE_URL,
+ process.env.NEXT_PUBLIC_SUPABASE_KEY
+)
 
 const SignUp = () => {
 
@@ -26,6 +33,7 @@ const SignUp = () => {
     passwordError :'password must have at least 8 characters that includes at least number',
     validateError :'password does not match',
   }
+
 
   const toast = useToast();
   const router = useRouter()
@@ -50,7 +58,7 @@ const SignUp = () => {
               email: email,
               password: password,
               options:{
-                emailRedirectTo:`http://localhost:3000/users`
+                emailRedirectTo:`http://localhost:3000/accounts/signin`
               }
             })
 
@@ -58,7 +66,7 @@ const SignUp = () => {
           if (error) {
             // Supabase reached, but login failed (wrong credentials, etc.)
             setIsLoading(false)
-            toast(error)
+            toast('error signing up')
             setError(true)
             console.log("Supabase auth error:", error)
             return

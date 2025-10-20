@@ -16,7 +16,7 @@ const Users = () => {
             if (!session) {
               redirect(`/accounts/signin`)
             }    else    if (session) {
-              redirect(`/users/${session.user.id}/dashboard`);
+              redirect(`/users/${session.user.id}`);
             }
                       
 
