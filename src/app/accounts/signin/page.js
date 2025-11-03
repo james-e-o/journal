@@ -1,17 +1,24 @@
 'use client'
+
+import CryptoJS from "crypto-js"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
 import { Indiv,google,x ,apple} from "../signup/page"
-import { useState } from "react"
-import { Eye, EyeOff,LogIn,MoveLeft,MoveRight, Quote, Rocket } from "lucide-react"
+import { Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogOverlay, DialogPortal, DialogTitle, DialogTrigger,} from "@/components/ui/dialog"
+import { useState,useEffect } from "react"
+import { Eye, EyeOff,LogIn,MoveLeft,MoveRight, Quote, Rocket ,Check} from "lucide-react"
 import { isEmpty,isEmail,isLength,matches, } from "validator"
-// import { supabase } from "../../../../config/supabaseClient"
-import { createBrowserClient } from "@supabase/ssr"
+import { supabase } from "../../../../config/supabaseClient"
 import { Spinner } from "@/components/ui/spinner"
 import { useRouter } from "next/navigation"
-// import { toast } from "sonner"
 import { useToast } from "@/components/custom-toast"
+import { encodeID } from "@/components/hash"
 
+
+// export function encodeID (item){
+//   const key = process.env.NEXT_PUBLIC_SECRET_KEY // ⚠️ note: public if used in client
+//   return CryptoJS.HmacSHA256(String(item), key).toString(CryptoJS.enc.Hex)
+// }
 
 const SignIn = () => {
   const [email, setEmail] = useState('')
@@ -19,20 +26,17 @@ const SignIn = () => {
   const [error,setError] = useState(false)
   const [errorMessage,setErrorMessage] = useState('')
   const [isLoading,setIsLoading] = useState(false)
-
-   const supabase = createBrowserClient(
-    process.env.NEXT_PUBLIC_SUPABASE_URL,
-    process.env.NEXT_PUBLIC_SUPABASE_KEY
-  )
-  
+  const [dialogOpen,setDialogOpen] = useState(false)
+  const [attempt,setAttempt] = useState(0)
   const message = {
     emailError:'valid email address required',
     passwordError :'password cannot be empty',
     passwordError2 :'incorrect email or password'
   }
-
-    const toast = useToast();
-    const router = useRouter()
+  
+ 
+  const toast = useToast();
+  const router = useRouter()
 
   async function Submit(e){
     e.preventDefault()
@@ -60,10 +64,26 @@ const SignIn = () => {
           }
 
           if (data.session) {
-            setIsLoading(false)
             // ✅ session created and stored automatically
             const userId = data.user.id;
-            router.push(`/users/${userId}`);
+            
+            const { data: profile, error: profileError } = await supabase
+              .from('profiles')
+              .select('handle')
+              .eq('id', userId)
+              .single()
+
+            if (profileError || !profile) {
+              console.error('Profile fetch error:', profileError)
+              alert('Profile not found. Please sign in again.')
+              setIsLoading(false)
+              return
+            }
+
+               // ✅ Step 3: Profile is complete → go to dashboard
+              router.push(`/users/${profile.handle}`);
+              setIsLoading(false)
+        
           }
 
         } catch (err) {
@@ -75,8 +95,21 @@ const SignIn = () => {
         }
     }
   }
+
+   useEffect(() => {
+      const url = new URL(window.location.href);
+      const isConfirmed = url.searchParams.get('confirmed');
+      
+      if (isConfirmed) {
+        setEmail(isConfirmed)
+        setDialogOpen(true)
+        // Clean up the URL so it doesn't repeat on reload
+        router.replace('/accounts/signin');
+      }
+    }, []);
   
   return (
+      <Dialog setDialogOpen={setDialogOpen} dialogOpen={dialogOpen}>
    
       <div className="px-5 pb-1 w-10/12 md:w-9/12 pt-14 flex flex-col justify-start items-center flex-grow">
         <p className=" pb-0 px-5  mt-5 text-center text-zinc-900 text-base relative font-semibold ">Welcome back!</p>
@@ -105,7 +138,17 @@ const SignIn = () => {
           </div>
         </div>
       </div>
+          <DialogContent className={''}>
+              <DialogHeader>
+                <DialogTitle>Email Confirmed <Check className="text-army inline"/></DialogTitle>
+                <DialogDescription className={'text-neutral-700'}>
+                  Your email <span className="text-core">{email}</span> has been confirmed, continue to login.
+                </DialogDescription>
+              </DialogHeader>
+          </DialogContent>
+      </Dialog>
   )
 }
 
 export default SignIn
+

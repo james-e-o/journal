@@ -7,7 +7,6 @@ import { cn } from "@/lib/utils"
 import { buttonVariants } from "@/components/ui/button"
 
 function AlertDialog({dialogOpen,setDialogOpen,...props}) {
-  // const [dialogOpen, setDialogOpen] = useState(false)
   return <AlertDialogPrimitive.Root open={dialogOpen} onOpenChange={setDialogOpen} data-slot="alert-dialog" {...props} />;
 }
 

@@ -38,6 +38,41 @@ const SignUp = () => {
   const toast = useToast();
   const router = useRouter()
 
+  function generateUsername(email) {
+    if (!email) return;
+
+    const namePart = email.split('@')[0].replace(/[^a-zA-Z0-9]/g, '');
+    
+    return `@${namePart}`;
+  }
+
+  function addRandomSuffix(base) {
+  // Add a small random string or number (e.g. user1234)
+  const random = Math.random().toString(36).substring(2, 6);
+  return `${base}${random}`;
+}
+
+async function generateUniqueUsername(email, supabase) {
+  let username = generateUsername(email);
+  let finalUsername = username;
+
+  // Loop until we find a unique username
+  while (true) {
+
+
+    const { data: existing, error } = await supabase
+      .from("profiles")
+      .select("id")
+      .eq("username", finalUsername)
+      .maybeSingle();
+
+    if (!existing) break; // Unique username found
+    finalUsername = addRandomSuffix(username); // Try again with random suffix
+  }
+
+  return finalUsername;
+}
+
 
   async function Submit(e){
     e.preventDefault()
@@ -47,18 +82,27 @@ const SignUp = () => {
    
     if(isEmpty(email) || !isEmail(email)){setError(true),setErrorMessage(message.emailError); return}
     else if(isEmpty(password)||!isLength(password,{min:8})||!matches(password,/[0-9]/)){setError(true),setErrorMessage(message.passwordError); return}
-    else if(isEmpty(passwordValidate)||passwordValidate!==password){setError(true),setErrorMessage(message.validateError); return}
+    else if(isEmpty(passwordValidate)||passwordValidate!==password){setError(true);setErrorMessage(message.validateError); return}
     else {
       // console.log('successfull',password,passwordValidate)
       
       setIsLoading(true)
+      const username = await generateUniqueUsername(email, supabase);
+      const handle = username.startsWith('@') ? username.slice(1) : username; // remove '@' for handle
+
         try {
           // Network call to Supabase
             let { data, error } = await supabase.auth.signUp({
               email: email,
               password: password,
               options:{
-                emailRedirectTo:`http://localhost:3000/accounts/signin`
+                // emailRedirectTo:`http://localhost:3000/accounts/signin?confirmed=${email}`,
+                emailRedirectTo:`https://rayani-journal-demo.vercel.app/accounts/signin?confirmed=${email}`,
+                data:{
+                  username:username,
+                  handle:handle,
+                  role:'admin'
+                }
               }
             })
 

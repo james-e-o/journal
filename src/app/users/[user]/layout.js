@@ -1,10 +1,10 @@
 'use client'
 import {SidebarInset,SidebarProvider,SidebarTrigger,} from "@/components/ui/sidebar"
-import { BrowserClient } from '../../../../config/browserClient'
 import React,{useState,createContext, useEffect} from 'react'
 import { useParams, useRouter } from 'next/navigation'
 import { AppSidebar } from "@/components/app-sidebar"
 import { Spinner } from '@/components/ui/spinner'
+import { supabase } from "../../../../config/supabaseClient"
 
 export const DataContext = createContext()
 
@@ -12,33 +12,54 @@ export default function Page({children}) {
 
   const router = useRouter()
   const params = useParams()
-  const supabase = BrowserClient
   const [data,setData] = useState({
     weeksHeight:'',
     weekHeight:'',
+    profile:null
   })
   const [isLoading,setIsLoading] = useState(true)
-
+  const [error, setError] = useState(null)
+  const [profile, setProfile] = useState(null)
 
   useEffect(() => {
     async function checkUser() {
-      const {
-        data: { session },
-      } = await supabase.auth.getSession()
 
-      // If no session, redirect to sign-in
-      if (!session) {
-        router.replace('/accounts/signin')
-        return
-      }
+       const { data: { user } } =  await supabase.auth.getUser()
+        
+            if (!user) {
+                setIsLoading(false)
+                router.push('/accounts/signin')
+            }
 
-      // If logged-in user does not match the URL param
-      if (session.user.id !== params.user) {
-        router.replace(`/users/${session.user.id}`)
-        return
-      }
+            const userID = user?.id
 
-      setIsLoading(false)
+      const { data: profile, error: profileError } = await supabase
+            .from('profiles')
+            .select('*')
+            .eq('id', userID)
+            .single()
+
+            console.log(data)
+
+            if (!profile || profileError) {
+                 setData(prev=>({...prev,profile:null}))
+                alert('No profile found for this user, try reoading this page')
+                setIsLoading(false)
+                router.push('/accounts/signin')
+            }
+            
+            console.log(user,profile)
+            
+            
+            // Compare the logged-in user's handle to the route param
+            if (params.u !== profile.handle) {
+                console.warn(`Unauthorized access attempt by ${profile.handle}`)
+                setIsLoading(false)
+                router.push(`/users/${profile.handle}`) // redirect them to *their own* admin page
+            }
+
+            setData(prev=>({...prev,profile}))
+            setIsLoading(false)
     }
 
     checkUser()
@@ -51,7 +72,7 @@ export default function Page({children}) {
 
   return (
     <SidebarProvider  className={'relative'}>
-      <AppSidebar  />
+      <AppSidebar data={data.profile} id={data.profile&&data.profile.id} />
       <SidebarInset className={' overflow-hidden h-svh static'}>
         <div className="flex mb-0.5 h-full overflow-hidden flex-col gap-4">
            <DataContext.Provider value={{data,setData}}>

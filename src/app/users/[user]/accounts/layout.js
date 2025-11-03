@@ -1,6 +1,9 @@
 import React from 'react'
+// import { createClient } from '../../../../../config/serverClient'
+// import { redirect } from 'next/navigation'
 
-const TradeAccountsLayout = ({children}) => {
+const TradeAccountsLayout = async ({children}) => {
+
   return (
     <div>
       {children}

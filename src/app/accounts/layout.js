@@ -25,7 +25,7 @@ export default function AccountsLayout({ children }) {
                         <ToastProvider>                           
                             {children}  
                         </ToastProvider>
-                         <Link className="relative bottom-[10%]" href={'/user'}><Button  className="hover:bg-transparent font-semibold  p-8 mt-4 bg-blue-400 hover:opacity-100"><TriangleAlert className="text-white"/> <span className="text-white">Site is under construction <br /> take a tour</span></Button></Link>
+                         {/* <Link className="relative bottom-[10%]" href={'/user'}><Button  className="hover:bg-transparent font-semibold  p-8 mt-4 bg-blue-400 hover:opacity-100"><TriangleAlert className="text-white"/> <span className="text-white">Site is under construction <br /> take a tour</span></Button></Link> */}
                      </div>  
                     <div className={`hidden w-8/12 md:flex items-center relative overflow-hidden opacity-90 before:absolute bg-center bg-green-500 justify-center`}>
                         <div className="w-full h-full">

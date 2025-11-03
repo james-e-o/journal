@@ -1,31 +1,30 @@
 "use client"
 
-import {  BadgeCheck,  Bell,  ChevronsUpDown,  CreditCard,  LogOut,  Sparkles,} from "lucide-react"
+import {  BadgeCheck,  Bell,  ChevronsUpDown,  CreditCard,  LogOut,  Settings,  Sparkles,} from "lucide-react"
 import {  Avatar,  AvatarFallback,  AvatarImage,} from "@/components/ui/avatar"
 import {  DropdownMenu,  DropdownMenuContent,  DropdownMenuGroup,  DropdownMenuItem,  DropdownMenuLabel,  DropdownMenuSeparator,  DropdownMenuTrigger,} from "@/components/ui/dropdown-menu"
 import {  SidebarMenu,  SidebarMenuButton,  SidebarMenuItem,  useSidebar,} from "@/components/ui/sidebar"
 
-export function NavUser({user,}){
+export function NavUser({user}){
   
   const { isMobile } = useSidebar()
 
   return (
-    <SidebarMenu className={'text-zinc-200'}>
+    <SidebarMenu className={'text-zinc-900'}>
       <SidebarMenuItem>
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <SidebarMenuButton
               size="lg"
               variant="ghost"
-              className="data-[state=open]:bg-transparent data-[state=open]:border-0 border-0 hover:bg-transparent hover:text-white data-[state=open]:text-white"
+              className="data-[state=open]:bg-transparent cursor-pointer data-[state=open]:border-0 border-0 hover:bg-transparent hover:text-zinc-700 data-[state=open]:text-black"
             >
-              <Avatar className='items-center inline-flex rounded-full size-7 justify-center'>
-                <AvatarImage src={user.avatar} width={50} height={50} className=" w-full " alt="@storeprobuilder"/>
-                <AvatarFallback className="rounded-lg">NA</AvatarFallback>
+              <Avatar className='items-center border inline-flex rounded-full size-7 justify-center'>
+                <AvatarImage src={user&&user.avatar} width={60} height={60} className=" w-full" alt="@storeprobuilder"/>
+                <AvatarFallback className="rounded-lg bg-white uppercase font-bold text-xl text-army">{user&&user.username.charAt(1)}</AvatarFallback>
               </Avatar>
-              <div className="grid flex-1 text-left text-sm leading-tight">
-                <span className="truncate font-medium">{user.name}</span>
-                <span className="truncate text-xs">{user.email}</span>
+              <div className="grid flex-1 text-left text-xs text-neutral-50 leading-tight">
+                <span className="truncate font-semibold">{user&&user.username}</span>
               </div>
               <ChevronsUpDown className="ml-auto size-4" />
             </SidebarMenuButton>
@@ -39,12 +38,12 @@ export function NavUser({user,}){
             <DropdownMenuLabel className="p-0 font-normal">
               <div className="flex items-center gap-2 px-1 py-1.5 text-left text-sm">
                 <Avatar className="h-8 w-8 rounded-lg">
-                  <AvatarImage src={user.avatar} alt={user.name} />
-                  <AvatarFallback className="rounded-lg">CN</AvatarFallback>
+                  <AvatarImage src={user&&user.avatar} alt={user&&user.username} />
+                  <AvatarFallback className="rounded-lg">{user&&user.username.charAt(1)}</AvatarFallback>
                 </Avatar>
                 <div className="grid flex-1 text-left text-sm leading-tight">
-                  <span className="truncate font-medium">{user.name}</span>
-                  <span className="truncate text-xs">{user.email}</span>
+                  <span className="truncate font-medium">{user&&user.username}</span>
+                  <span className="truncate text-xs">{user&&user.email}</span>
                 </div>
               </div>
             </DropdownMenuLabel>
@@ -58,8 +57,8 @@ export function NavUser({user,}){
             <DropdownMenuSeparator />
             <DropdownMenuGroup>
               <DropdownMenuItem>
-                <BadgeCheck />
-                Account
+                <Settings />
+                Settings
               </DropdownMenuItem>
               <DropdownMenuItem>
                 <CreditCard />

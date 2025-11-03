@@ -1,15 +1,13 @@
 "use client"
 
 import  React from "react"
-import { ArrowBigDownDash, AudioWaveform, BookOpen, Bot, Calculator, ChartCandlestick, Command, FileChartLine, Frame, GalleryVerticalEnd, LayoutDashboard, Map, PieChart, Plus, Settings2, SquareTerminal,} from "lucide-react"
+import { ArrowBigDownDash, AudioWaveform, BookOpen, Bot, Calculator, ChartCandlestick, Command, FileChartLine, Files, Frame, GalleryVerticalEnd, LayoutDashboard, Map, Notebook, PieChart, Plus, Settings2, SquareTerminal,} from "lucide-react"
 import { Button,buttonVariants } from "@/components/ui/button";
 import Image from "next/image";
 import { Avatar,  AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import Link from "next/link";
-import { NavMain } from "@/components/nav-main"
-import { NavProjects } from "@/components/nav-projects"
+import { useParams } from "next/navigation";
 import { NavUser } from "@/components/nav-user"
-import { TeamSwitcher } from "@/components/team-switcher"
 import {  Sidebar,  SidebarContent,  SidebarFooter,  SidebarHeader,SidebarTrigger,  SidebarRail,} from "@/components/ui/sidebar"
 import { ChevronRight,  } from "lucide-react"
 import {  Collapsible,  CollapsibleContent,  CollapsibleTrigger,} from "@/components/ui/collapsible"
@@ -18,138 +16,9 @@ import {  SidebarGroup,  SidebarGroupLabel,  SidebarMenu,  SidebarMenuButton,  S
 
 import { useIsMobile } from "@/hooks/use-mobile";
 
-// This is sample data.
-const data = {
-  user: {
-    name: "user name",
-    email: "m@example.com",
-    avatar: "/dummy.jpg",
-  },
-  teams: [
-    {
-      name: "Acme Inc",
-      logo: GalleryVerticalEnd,
-      plan: "Enterprise",
-    },
-    {
-      name: "Acme Corp.",
-      logo: AudioWaveform,
-      plan: "Startup",
-    },
-    {
-      name: "Evil Corp.",
-      logo: Command,
-      plan: "Free",
-    },
-  ],
-  navMain: [
-    {
-      title: "Playground",
-      url: "#",
-      icon: SquareTerminal,
-      isActive: true,
-      items: [
-        {
-          title: "History",
-          url: "#",
-        },
-        {
-          title: "Starred",
-          url: "#",
-        },
-        {
-          title: "Settings",
-          url: "#",
-        },
-      ],
-    },
-    {
-      title: "Models",
-      url: "#",
-      icon: Bot,
-      items: [
-        {
-          title: "Genesis",
-          url: "#",
-        },
-        {
-          title: "Explorer",
-          url: "#",
-        },
-        {
-          title: "Quantum",
-          url: "#",
-        },
-      ],
-    },
-    {
-      title: "Documentation",
-      url: "#",
-      icon: BookOpen,
-      items: [
-        {
-          title: "Introduction",
-          url: "#",
-        },
-        {
-          title: "Get Started",
-          url: "#",
-        },
-        {
-          title: "Tutorials",
-          url: "#",
-        },
-        {
-          title: "Changelog",
-          url: "#",
-        },
-      ],
-    },
-    {
-      title: "Settings",
-      url: "#",
-      icon: Settings2,
-      items: [
-        {
-          title: "General",
-          url: "#",
-        },
-        {
-          title: "Team",
-          url: "#",
-        },
-        {
-          title: "Billing",
-          url: "#",
-        },
-        {
-          title: "Limits",
-          url: "#",
-        },
-      ],
-    },
-  ],
-  projects: [
-    {
-      name: "Design Engineering",
-      url: "#",
-      icon: Frame,
-    },
-    {
-      name: "Sales & Marketing",
-      url: "#",
-      icon: PieChart,
-    },
-    {
-      name: "Travel",
-      url: "#",
-      icon: Map,
-    },
-  ],
-}
-
-export function AppSidebar({ ...props }) {
-   const isMobile = useIsMobile()
+export function AppSidebar({ data,id,...props }) {
+  const isMobile = useIsMobile()
+  const params = useParams()
 
   return (
     <Sidebar  className={'bg-zinc-900'} collapsible="icon" {...props}>
@@ -171,12 +40,12 @@ export function AppSidebar({ ...props }) {
         </SidebarGroup>
         <SidebarGroup>
             <SidebarMenu>
-                <NoCollapsibleButton className={``} url={'/user'} title={'My Models'} icon={LayoutDashboard} active={false} name={'Dashboard'}/>
-                <NoCollapsibleButton className={``} url={'/user/accounts'} title={'My Models'} icon={FileChartLine} active={false} name={'Accounts'}/>
-                <NoCollapsibleButton className={``} url={'/user/trades'} title={'Trades'} icon={FileChartLine} active={false} name={'Trades'}/>
-                <NoCollapsibleButton className={``} url={'/user/journals'} title={'Journals'} icon={FileChartLine} active={false} name={'Journals'}/>
-                <NoCollapsibleButton className={``} url={'#'} title={'My Models'} icon={ChartCandlestick} active={false} name={'Charts'}/>
-                <NoCollapsibleButton className={``} url={'/user/position-size-calculator'} title={'Lot size Calculator'} icon={Calculator} active={false} name={'Calculator'}/>
+                <NoCollapsibleButton tooltip={'Dashboard'} className={``} url={`/users/${params.user}`} title={'My Models'} icon={LayoutDashboard} active={false} name={'Dashboard'}/>
+                <NoCollapsibleButton tooltip={'Accounts'} className={``} url={`/users/${params.user}/accounts`} title={'My Models'} icon={Files} active={false} name={'Accounts'}/>
+                <NoCollapsibleButton tooltip={'Trades'} className={``} url={`/users/${params.user}/trades`} title={'Trades'} icon={FileChartLine} active={false} name={'Trades'}/>
+                <NoCollapsibleButton tooltip={'Journals'} className={``} url={`/users/${params.user}/journals`} title={'Journals'} icon={Notebook} active={false} name={'Journals'}/>
+                <NoCollapsibleButton tooltip={'Charts'} className={``} url={`/users/${params.user}/charts`} title={'My Models'} icon={ChartCandlestick} active={false} name={'Charts'}/>
+                <NoCollapsibleButton tooltip={'Calculator'} className={``} url={`/users/${params.user}/position-size-calculator`} title={'Lot size Calculator'} icon={Calculator} active={false} name={'Calculator'}/>
                 <CollapsibleButton className={``} title={'Resource centre'} icon={SquareTerminal} items={[
                     {title:'Guides',url:'#'},
                     {title:'Docs',url:'#'},
@@ -189,7 +58,7 @@ export function AppSidebar({ ...props }) {
         {/* <NavProjects projects={data.projects} /> */}
       </SidebarContent>
       <SidebarFooter className={'bg-zinc-950 text-amber-400'} >
-        <NavUser user={data.user} />
+        <NavUser user={data} />
       </SidebarFooter>
       <SidebarRail />
     </Sidebar>
@@ -226,11 +95,11 @@ const CollapsibleButton = ({title,icon,items,sidebarCollapse }) => {
   )
 }
 
-const NoCollapsibleButton = ({name,active,url,icon }) => {
+const NoCollapsibleButton = ({name,active,url,icon,tooltip }) => {
     const item ={icon}
   return (
     <SidebarMenuItem mobileCollapse={true}  key={name} className={'my-0.5'}>
-        <SidebarMenuButton asChild isActive={active}>
+        <SidebarMenuButton tooltip={tooltip} asChild isActive={active}>
             <Link href={url}>
                 {item.icon && <item.icon className='font-bold' />}
                 <span className="font-medium text-xs ml-1">{name}</span>
