@@ -2,7 +2,7 @@
 import React , {useState,useEffect}from 'react'
 import Link from 'next/link'
 import { XIcon } from 'lucide-react'
-import { Button } from './ui/button'
+import { Button } from '../ui/button'
 import Image from "next/image";
 
 const LandingHeader = () => {

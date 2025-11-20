@@ -16,6 +16,7 @@ import { useParams } from "next/navigation"
 const NewAccount = () => {
     const [activeTab,setActiveTab]= useState('basic')
     const [type, setType] = useState(null)
+    const [option, setOption] = useState(null)
     const [accountName, setAccountName] = useState("")
     const [broker, setBroker] = useState("")
     const [currency, setCurrency] = useState("")
@@ -23,9 +24,16 @@ const NewAccount = () => {
     const params = useParams(); 
  
     const accountType = [
-        "demo",
-        "live",
-        "proprietary"
+        "Demo",
+        "Live",
+        "Proprietary"
+    ]
+
+    const tradeOptions = [
+        'Forex',
+        'Crypto',
+        'Stocks',
+        'Futures'
     ]
 
     function ValidateStep1() {
@@ -46,13 +54,13 @@ const NewAccount = () => {
   return (
     <Tabs className=' flex inset-0  bg-black/10 shadow-md shadow- absolute z-40 '>
         <div className='bg-white flex flex-col p-2 md:p-4 md:grid grid-cols-4 gap-2 border-zinc-400 border absolute inset-x-1.5 shadow-0 inset-y-1  overflow-clip rounded-md'>
-            <div className="text-start md:flex-col justify-between w-full flex p-4 md:p-6 col-span-1 font-WixMade  rounded-lg bg-zinc-900 tracking-tight text-xl font-semibold">
-                <div className="scale-95 sm:scale-100 w-full">
+            <div className="text-start md:flex-col justify-between w-full flex p-2 md:p-6 col-span-1 font-WixMade  rounded-lg bg-zinc-950 tracking-tight text-xl font-semibold">
+                <div className=" sm:scale-100 w-full">
                     <p className="font-semibold w-full md:w-4/5 text-start flex justify-between items-center md:mx-auto md:mt-4 p-1 text-sm text-white">
                         <span>New Journal Account</span> 
                         <Link className="md:hidden" href={`/users/${params.user}/accounts`}><Button variant={'outline'} className={'px-8 text-black h-6 w-16 cursor-pointer bg-[#fafafa]'}><X /></Button></Link>
                     </p>
-                    <TabsList  className={'flex w-4/5 mt-3 md:mt-8 mx-auto items-start gap-4 md:gap-9 h-fit md:flex-col bg-transparent'}>
+                    <TabsList  className={'flex w-full md:w-4/5 mt-3 md:mt-8 mx-2 md:mx-auto items-start gap-7 md:gap-9 h-fit md:flex-col bg-transparent'}>
                         <TabsTrigger onClick={()=>{setActiveTab('basic')}} className="font-medium new text-start p-0 flex justify-start bg-transparent rounded-none" value="basic">
                             <div className="flex flex-col md:flex-row gap-1 md:gap-4 items-start md:items-center">
                                 <p data-activetab={activeTab} className="text-amber-400 data-[activetab=basic]:bg-amber-400 border data-[activetab=basic]:text-black  border-amber-400 rounded-full size-5 md:size-6 inline-flex items-center justify-center  bg-transparent text-base md:text-2xl font-bold"><span className="text-xs font-semibold">1</span></p>
@@ -117,8 +125,8 @@ const NewAccount = () => {
                                     </div>
                                     <div className=" mt-5 flex-grow">
                                         <Label className='ml-0.5'>What do you want to trade?</Label>
-                                        <ComboDropTemplate list data={accountType} comboWidth={'w-[250px]'} value={type} setValue={setType}/>
-                                        <p className="text-xs text-red-500 italic ml-0.5">{(step1Error && !type)?`required`:``}</p>
+                                        <ComboDropTemplate list data={tradeOptions} comboWidth={'w-[250px]'} value={option} setValue={setOption}/>
+                                        <p className="text-xs text-red-500 italic ml-0.5">{(step1Error && !option)?`required`:``}</p>
                                     </div>
                                     <div className="flex mt-5 gap-5 items-center">
                                         <div className=" flex-grow">
@@ -186,11 +194,11 @@ const LinkAccount = () => {
     return(
             <Tabs className='flex-col flex h-full'  defaultValue={'meta'}>
                 <p className="font-medium text-sm mb-0.5 items-center flex gap-2">Sync options <ArrowRight className="size-4"/></p>
-                <TabsList className={`inline-flex -ml-0.5 bg-transparent px-0 gap-7 rounded-none`}>
+                <TabsList className={`inline-grid grid-cols-3 md:grid-cols-4 h-fit -ml-0.5 bg-transparent px-0 gap-2 md:gap-7 rounded-none`}>
                     <TabsTrigger value='meta' className={`shadow-none border-[3px] px-3 data-[state=active]:bg-black data-[state=active]:text-white bg-zinc-50 data-[state=active]:border-yellow-200/70 `}>Meta Trader</TabsTrigger>
                     <TabsTrigger value='platform' className={`shadow-none border-[3px] px-3 data-[state=active]:bg-black data-[state=active]:text-white bg-zinc-50 data-[state=active]:border-yellow-200/70 `}>Other Platforms</TabsTrigger>
                     <TabsTrigger value='broker' className={`shadow-none border-[3px] px-3 data-[state=active]:bg-black data-[state=active]:text-white bg-zinc-50 data-[state=active]:border-yellow-200/70 `}>Broker Sync</TabsTrigger>
-                   
+                    <TabsTrigger value='manual' className={`shadow-none border-[3px] px-3 data-[state=active]:bg-black data-[state=active]:text-white bg-zinc-50 data-[state=active]:border-yellow-200/70 `}>Manual Sync</TabsTrigger>
                 </TabsList>
                 <TabsContent className='font-normal' value='broker'>
                     <div className="flex-col flex h-full">

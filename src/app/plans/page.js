@@ -1,7 +1,7 @@
 'use client'
 import React, {useState} from 'react'
-import LandingHeader from '@/components/hero-header'
-import LandingFooter from '@/components/landing-foot'
+import LandingHeader from '@/components/home/hero-header'
+import LandingFooter from '@/components/home/landing-foot'
 import { Tabs, TabsContent, TabsList, TabsTrigger } from '@/components/ui/tabs'
 import Image from 'next/image'
 

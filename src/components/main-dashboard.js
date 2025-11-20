@@ -12,7 +12,7 @@ import { Command, CommandEmpty, CommandGroup, CommandInput, CommandItem, Command
 import {DropdownMenu,DropdownMenuContent,DropdownMenuGroup,DropdownMenuItem,DropdownMenuLabel,DropdownMenuPortal,DropdownMenuSeparator,DropdownMenuShortcut,DropdownMenuSub,DropdownMenuSubContent,DropdownMenuSubTrigger,DropdownMenuTrigger,} from "@/components/ui/dropdown-menu"
 import { Bell,Mail, MessageSquare,Plus,TrendingDownIcon, TrendingUpIcon,X ,Check, ChevronsUpDown, GripIcon, GripHorizontalIcon, ArrowRight } from "lucide-react";
 import {Popover,PopoverContent,PopoverTrigger,} from "@/components/ui/popover"
-import { ChartPieLabelList } from '@/components/pie-chart';
+import { ChartPieLabelList } from '@/components/charts/pie-chart';
 import { Calendar23 } from '@/components/range-calendars';
 import { TabsContent } from '@/components/ui/tabs';
 import { Input } from "@/components/ui/input"
@@ -21,9 +21,9 @@ import { cn } from "@/lib/utils"
 
 import { PieChart, Pie, Cell } from 'recharts'
 import { CalendarMain } from '@/components/main-calendar';
-import { ChartBarNegative } from '@/components/_bar-chart';
-import { ChartAreaDefault } from '@/components/_area-chart';
-import { ChartRadarDefault } from '@/components/_radar-chart';
+import { ChartBarNegative } from '@/components/charts/_bar-chart';
+import { ChartAreaDefault } from '@/components/charts/_area-chart';
+import { ChartRadarDefault } from '@/components/charts/_radar-chart';
 
 
 
@@ -57,7 +57,7 @@ const Dashboard = ({user,session}) => {
         <div className='flex justify-between py-2 items-center'>
           <p className='ml-0.5 font-medium'>Hello {'User'}!</p>
           <nav className=''>
-            <Button className={'h-7 text-xs'}>Import</Button>
+           
           </nav>
         </div>
         <div className='flex md:hidden gap-2 mr-1 items-center '>
@@ -70,18 +70,16 @@ const Dashboard = ({user,session}) => {
         <div className='flex flex-col flex-grow gap-4 mt-2'>
 
           {/* <div className='text-green-600 text-base font-semibold'>{session.user.id}</div> */}
-          <div className='grid gap-3  grid-cols-5'>
-            <StatsCards/>
-            <StatsCards/>
-            <StatsCards/>
-            <StatsCards/>
-            <StatsCards/>        
-
+          <div className='grid gap-3 grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5'>
+            <StatsCards />
+            <StatsCards />
+            <StatsCards />
+            <StatsCards />
           </div>
-          <div className='grid grid-cols-3 gap-3'> 
-            <ChartBarNegative/>
-            <ChartAreaDefault/>
-            <ChartRadarDefault/>
+          <div className='grid grid-cols-1 md:grid-cols-3 gap-3'>
+            <ChartBarNegative />
+            <ChartAreaDefault />
+            <ChartRadarDefault />
           </div>
           <div className='grid md:grid-cols-3 grid-cols-1 gap-4'>
             <div className='col-span-2'>

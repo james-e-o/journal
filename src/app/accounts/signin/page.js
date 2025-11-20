@@ -12,7 +12,6 @@ import { supabase } from "../../../../config/supabaseClient"
 import { Spinner } from "@/components/ui/spinner"
 import { useRouter } from "next/navigation"
 import { useToast } from "@/components/custom-toast"
-import { encodeID } from "@/components/hash"
 
 
 // export function encodeID (item){

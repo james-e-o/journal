@@ -12,6 +12,7 @@ const TradeAccounts = () => {
 
   const router = useRouter()
   const params = useParams()
+  const {user} = params
 
   return (
     <div className=''>
@@ -20,7 +21,7 @@ const TradeAccounts = () => {
           <div className='flex mb-1 items-center py-2 justify-between'>
             {accounts&& <>
               <p className='font-medium '>Trade Accounts</p>
-              <Link href={'/user/accounts/new-account'}><Button className={'cursor-pointer h-8 mt-2 text-black bg-core hover:bg-core/80"'}><Plus/>New account</Button></Link>
+              <Link href={`/users/${user}/accounts/new-account`}><Button className={'cursor-pointer h-8 mt-2 text-black bg-core hover:bg-core/80"'}><Plus/>New account</Button></Link>
             </>} 
           </div>
           <div className=''>
@@ -53,7 +54,7 @@ const TradeAccounts = () => {
                   </div>
 
                   {/* Button */}
-                  <Link href={`/users/${params.user}/accounts/new-account`}><Button  className="mt-2 text-black bg-core hover:bg-core/80">
+                  <Link href={`/users/${user}/accounts/new-account`}><Button  className="mt-2 text-black bg-core hover:bg-core/80">
                     Create account
                   </Button></Link>
                 </div>

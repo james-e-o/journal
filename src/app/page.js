@@ -7,11 +7,11 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Carousel, CarouselContent, CarouselItem, CarouselNext, CarouselPrevious} from "@/components/ui/carousel"
 import { ShieldCheck, Zap, RotateCcw, CalendarDays, LineChart, Rocket ,X,XIcon} from "lucide-react";
 import Link from "next/link";
-import FeatureScroller from "@/components/scroller";
+import FeatureScroller from "@/components/home/scroller";
 import { Avatar } from "@/components/ui/avatar";
 import {  Accordion,  AccordionContent,  AccordionItem,  AccordionTrigger,} from "@/components/ui/accordion"
-import LandingHeader from "@/components/hero-header";
-import LandingFooter from "@/components/landing-foot";
+import LandingHeader from "@/components/home/hero-header";
+import LandingFooter from "@/components/home/landing-foot";
 
 export default function Home() {
 

@@ -33,41 +33,6 @@ console.log(segments);
       <SidebarTrigger className="-ml-1" />
       <Separator orientation="vertical" className="mr-2 data-[orientation=vertical]:h-4" />
 
-      {/* <Breadcrumb>
-        <BreadcrumbList className={"flex items-center gap-1"}>
-          {breadcrumbSegments.map((segment, i) => {
-            const href = "/" + segments.slice(0, i + 1).join("/");
-            const isLast = i === breadcrumbSegments.length - 1;
-            const label =
-              segment === "dashboard"
-                ? "Dashboard"
-                : labels[segment] || segment;
-
-            if (isLast) {
-              return (
-                <BreadcrumbItem className={'h-fit'} key={href}>
-                  <BreadcrumbPage className="capitalize">
-                    {label}
-                  </BreadcrumbPage>
-                </BreadcrumbItem>
-              );
-            }
-
-            return (
-              <div key={href} className="flex items-center">
-                <BreadcrumbItem>
-                  <BreadcrumbLink asChild>
-                    <Link href={href} className="capitalize">
-                      {label}
-                    </Link>
-                  </BreadcrumbLink>
-                </BreadcrumbItem>
-                <BreadcrumbSeparator className={'flex items-center ml-1 relative top-0.5'}/>
-              </div>
-            );
-          })}
-        </BreadcrumbList>
-      </Breadcrumb> */}
       <Breadcrumb>
           <BreadcrumbList className="flex items-center gap-1">
             {/* If user is on /user/[id], show only Dashboard */}
