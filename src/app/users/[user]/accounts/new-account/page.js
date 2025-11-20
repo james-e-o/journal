@@ -207,7 +207,7 @@ const LinkAccount = () => {
                                 syncAccount==='list'?<div className="">
                                     <p className="text-sm ">broker list</p>
                                 </div>:
-                                syncAccount==='item'?<div className="">
+                                syncAccount==='item'?<div  className="">
 
                                 </div>:''
                             }
