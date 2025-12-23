@@ -70,22 +70,22 @@ const Dashboard = ({user,session}) => {
         <div className='flex flex-col flex-grow gap-4 mt-2'>
 
           {/* <div className='text-green-600 text-base font-semibold'>{session.user.id}</div> */}
-          <div className='grid gap-3 grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5'>
+          <div className='grid gap-3 grid-cols-2 sm:grid-cols-3 md:grid-cols-4 '>
             <StatsCards />
             <StatsCards />
             <StatsCards />
             <StatsCards />
-          </div>
-          <div className='grid grid-cols-1 md:grid-cols-3 gap-3'>
-            <ChartBarNegative />
-            <ChartAreaDefault />
-            <ChartRadarDefault />
           </div>
           <div className='grid md:grid-cols-3 grid-cols-1 gap-4'>
             <div className='col-span-2'>
               <CalendarMain />
               
             </div>
+          </div>
+          <div className='grid grid-cols-1 md:grid-cols-3 gap-3'>
+            <ChartBarNegative />
+            <ChartAreaDefault />
+            <ChartRadarDefault />
           </div>
           <div className='grid grid-cols-3'></div>
           {/* <ChartPieLabelList/> */}

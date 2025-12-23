@@ -52,7 +52,7 @@ export default function Page({children}) {
             
             
             // Compare the logged-in user's handle to the route param
-            if (params.u !== profile.handle) {
+            if (params.user !== profile.handle) {
                 console.warn(`Unauthorized access attempt by ${profile.handle}`)
                 setIsLoading(false)
                 router.push(`/users/${profile.handle}`) // redirect them to *their own* admin page
